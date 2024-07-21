@@ -1,6 +1,9 @@
+import Image from "next/image";
+import Link from "next/link";
+
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
-import Image from "next/image";
+
 
 export default function Home() {
   return (
@@ -21,7 +24,7 @@ export default function Home() {
             <Image src="/assets/images/home-page-buildings.svg" alt="Buildings" width={700} height={400} />
           </div>
         </div>
-        <div className="flex flex-col lg:flex-row justify-between items-center my-20">
+        <div className="flex flex-col-reverse sm:flex-col lg:flex-row justify-between items-center my-20">
           <div className="lg:w-1/2 flex justify-center p-4">
             <Image src="/assets/images/home-page-comunity.svg" alt="Tenants" width={700} height={400} />
           </div>
@@ -31,7 +34,9 @@ export default function Home() {
             <p className="mb-6 text-xl text-gray">
               that alerts other landlords of tenants that damaged their property or didn’t pay for rent. Register and leave information about your bad experience to prevent others from having it.
             </p>
-            <button className="bg-orange hover:bg-orangeDark text-white py-2 px-6 rounded-lg">Report tenant</button>
+            <Link href="/contribute">
+              <button className="bg-orange hover:bg-orangeDark text-white py-2 px-6 rounded-lg">Report tenant</button>
+            </Link>
           </div>
         </div>
       </div>
