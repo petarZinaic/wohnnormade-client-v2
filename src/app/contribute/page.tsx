@@ -5,7 +5,7 @@ export default function Contribute() {
     <>
       <Navbar />
       <div className="flex items-center justify-center min-h-screen bg-gray-100">
-        <div className="w-full max-w-4xl mx-auto  bg-white rounded-lg shadow-md">
+        <div className="w-full max-w-4xl mx-auto  bg-white rounded-lg shadow-md sm:mt-20">
           <div className="bg-orange text-white rounded-t-lg">
             <h1 className="text-2xl text-center font-bold mb-6 py-4">Add Tenant</h1>
           </div>
