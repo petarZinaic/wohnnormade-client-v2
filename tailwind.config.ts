@@ -27,6 +27,9 @@ const config: Config = {
       orangeDark: "#da513d",
       purple: "rgba(89, 35, 131, 0.08)",
       purpleDdark: "#592383",
+    },
+    fontFamily: {
+      Montserrat: ["Montserrat", "sans-serif"]
     }
   },
   plugins: [],
