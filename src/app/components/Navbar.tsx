@@ -37,12 +37,12 @@ function Navbar() {
             Home
           </li>
         </Link>
-        <Link href="/about">
+        <Link href="/contribute">
           <li
-            className={`px-6 lg:px-8 cursor-pointer uppercase ${pathname === "/about" ? "underline text-green" : ""
+            className={`px-6 lg:px-8 cursor-pointer uppercase ${pathname === "/contribute" ? "underline text-green" : ""
               } hover:text-green`}
           >
-            About us
+            Contribute
           </li>
         </Link>
         <Link href="/search">
@@ -78,12 +78,12 @@ function Navbar() {
               Home
             </li>
           </Link>
-          <Link href="/about">
+          <Link href="/contribute">
             <li
-              className={`p-4 cursor-pointer uppercase ${pathname === "/about" ? "underline text-green" : ""
+              className={`p-4 cursor-pointer uppercase ${pathname === "/contribute" ? "underline text-green" : ""
                 } border-b border-gray`}
             >
-              About us
+              Contribute
             </li>
           </Link>
           <Link href="/search">
