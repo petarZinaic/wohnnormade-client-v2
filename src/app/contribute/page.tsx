@@ -36,7 +36,7 @@ export default function Contribute() {
     <>
       <Navbar />
       <div className="flex items-center justify-center min-h-screen bg-gray-100 mt-10">
-        <div className="w-full max-w-3xl mx-auto p-2 bg-white rounded-lg shadow-md max-h-screen overflow-y-auto">
+        <div className="w-full max-w-3xl mx-auto bg-white rounded-lg shadow-md max-h-screen overflow-y-auto">
           <div className="bg-orange text-white rounded-t-lg">
             <h1 className="text-xl text-center font-bold mb-6 py-2">Report Tenant</h1>
           </div>
