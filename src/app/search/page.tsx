@@ -1,7 +1,7 @@
 "use client"
 
-import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import {useState, useEffect} from "react";
+import {useRouter} from "next/navigation";
 import Navbar from "../components/Navbar";
 
 export default function Search() {
@@ -30,11 +30,18 @@ export default function Search() {
     const value = e.target.value;
     setSearchTerm(value);
 
+    if(value.trim() === "") {
+      setSuggestions([]);
+      return;
+    }
+
     if (tenantData) {
       const matches = `${tenantData.tenantName} ${tenantData.tenantSurname}`
         .toLowerCase()
         .includes(value.toLowerCase());
       setSuggestions(matches ? [tenantData] : []);
+
+      return;
     }
   };
 
@@ -46,7 +53,7 @@ export default function Search() {
     <>
       <Navbar />
       <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
-        <h1 className="text-4xl font-bold mb-4">Search reported tenants</h1>
+        <h1 className="text-4xl font-bold mb-1">Search reported <span className="text-orange">tenants</span></h1>
         <div className="w-full max-w-md p-4">
           <input
             type="text"
@@ -55,8 +62,8 @@ export default function Search() {
             value={searchTerm}
             onChange={handleSearch}
           />
-          <ul className="bg-white border mt-2 w-full rounded-lg shadow-lg">
-            {suggestions.length > 0 ? (
+          {suggestions.length > 0 && (
+            <ul className="bg-white border mt-2 w-full rounded-lg shadow-lg">{
               suggestions.map((tenant, index) => (
                 <li
                   key={index}
@@ -66,10 +73,9 @@ export default function Search() {
                   {tenant.tenantName} {tenant.tenantSurname}
                 </li>
               ))
-            ) : (
-              <li className="p-2 text-gray-500">No tenants found</li>
-            )}
-          </ul>
+            }
+            </ul>
+          )}
         </div>
       </div>
     </>
