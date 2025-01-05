@@ -1,7 +1,6 @@
 "use client"
 
 import { useState } from "react";
-import Navbar from "../components/Navbar";
 
 export default function Contribute() {
   const [tenantName, setTenantName] = useState("");
@@ -34,7 +33,6 @@ export default function Contribute() {
 
   return (
     <>
-      <Navbar />
       <div className="flex items-center justify-center min-h-screen bg-gray-100 mt-10">
         <div className="w-full max-w-3xl mx-auto bg-white rounded-lg shadow-md max-h-screen overflow-y-auto">
           <div className="bg-orange text-white rounded-t-lg">

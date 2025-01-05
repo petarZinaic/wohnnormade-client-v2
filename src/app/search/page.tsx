@@ -2,7 +2,6 @@
 
 import {useState, useEffect} from "react";
 import {useRouter} from "next/navigation";
-import Navbar from "../components/Navbar";
 
 export default function Search() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -51,9 +50,8 @@ export default function Search() {
 
   return (
     <>
-      <Navbar />
       <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
-        <h1 className="text-4xl font-bold mb-1">Search reported <span className="text-orange">tenants</span></h1>
+        <h1 className="text-4xl font-bold mb-1">Search reported <span className="text-orange">Tenants</span></h1>
         <div className="w-full max-w-md p-4">
           <input
             type="text"

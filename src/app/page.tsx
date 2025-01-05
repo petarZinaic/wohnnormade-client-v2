@@ -1,14 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import Footer from "./components/Footer";
-import Navbar from "./components/Navbar";
-
-
 export default function Home() {
   return (
     <main>
-      <Navbar />
       <div className="container mx-auto p-4 mt-20 font-Montserrat">
         <div className="flex flex-col lg:flex-row justify-between items-center">
           <div className="lg:w-1/2 text-center lg:text-left p-4">
@@ -40,7 +35,6 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <Footer />
     </main>
   );
 }

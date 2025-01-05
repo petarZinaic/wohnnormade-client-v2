@@ -1,6 +1,5 @@
 "use client"
 
-import Navbar from "../components/Navbar";
 import { useEffect, useState } from "react";
 
 export default function TenantPreview() {
@@ -24,7 +23,6 @@ export default function TenantPreview() {
 
   return (
     <>
-      <Navbar />
       <div className="flex items-center justify-center min-h-screen bg-gray-100">
         <div className="w-full max-w-md p-4 bg-white rounded-lg shadow-lg">
           <h1 className="text-2xl font-bold mb-4">Tenant Details</h1>
