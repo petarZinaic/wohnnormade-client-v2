@@ -1,23 +1,14 @@
-import { dirname } from 'path';
-import { fileURLToPath } from 'url';
-import { FlatCompat } from '@eslint/eslintrc';
+import config from "eslint-config-standard";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
-const compat = new FlatCompat({
-  baseDirectory: __dirname,
-});
-
-const eslintConfig = [
-  ...compat.extends('next/core-web-vitals', 'next/typescript'),
+/** @type {import('eslint').Linter.Config[]} */
+export default [
   {
+    ...config,
     rules: {
+      ...config.rules,
       semi: ['error', 'always'],
       'object-curly-spacing': ['error', 'always'],
       'eol-last': ['error', 'always'],
-    }
-  }
+    },
+  },
 ];
-
-export default eslintConfig;
