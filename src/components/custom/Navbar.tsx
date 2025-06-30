@@ -110,7 +110,7 @@ function Navbar() {
         }
       >
         <ul className="pt-24 uppercase text-white p-4 tracking-wider">
-          <Link href="/">
+          <Link href="/" onClick={handleNav}>
             <li
               className={`p-4 cursor-pointer uppercase ${
                 pathname === "/" ? "underline text-orange" : ""
@@ -119,7 +119,7 @@ function Navbar() {
               Home
             </li>
           </Link>
-          <Link href="/contribute">
+          <Link href="/contribute" onClick={handleNav}>
             <li
               className={`p-4 cursor-pointer uppercase ${
                 pathname === "/contribute" ? "underline text-orange" : ""
@@ -128,7 +128,7 @@ function Navbar() {
               Contribute
             </li>
           </Link>
-          <Link href="/search">
+          <Link href="/search" onClick={handleNav}>
             <li
               className={`p-4 cursor-pointer uppercase ${
                 pathname === "/search" ? "underline text-orange" : ""
@@ -139,7 +139,7 @@ function Navbar() {
           </Link>
           {isAuthenticated ? (
             <>
-              <Link href="/profile">
+              <Link href="/profile" onClick={handleNav}>
                 <li
                   className={`p-4 cursor-pointer uppercase ${
                     pathname === "/profile" ? "underline text-orange" : ""
@@ -150,14 +150,17 @@ function Navbar() {
               </Link>
               <li
                 className="p-4 cursor-pointer uppercase text-yellow-400 hover:text-red-500 border-b border-gray"
-                onClick={logout}
+                onClick={() => {
+                  logout();
+                  handleNav();
+                }}
               >
                 Logout
               </li>
             </>
           ) : (
             <>
-              <Link href="/login">
+              <Link href="/login" onClick={handleNav}>
                 <li
                   className={`p-4 cursor-pointer uppercase ${
                     pathname === "/login" ? "underline text-orange" : ""
