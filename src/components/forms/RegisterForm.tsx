@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useAuth } from "@/context/AuthContext";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
-import { Button } from "@/components/common";
+import { Button, LocationAutocomplete } from "@/components/common";
 import {
   ValidationErrors,
   validateRegisterForm,
@@ -177,60 +177,26 @@ export default function RegisterForm({ onSuccess }: RegisterFormProps) {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-            <div>
-              <label
-                className="block text-gray-700 text-sm font-bold mb-2"
-                htmlFor="city"
-              >
-                City
-              </label>
-              <input
-                className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
-                  validationErrors.city ? "border-red-500" : ""
-                }`}
-                id="city"
-                type="text"
-                placeholder="Enter your city"
-                value={city}
-                onChange={(e) => {
-                  setCity(e.target.value);
-                  handleFieldChange("city", e.target.value);
-                }}
-                required
-              />
-              {validationErrors.city && (
-                <p className="text-red-500 text-xs mt-1">
-                  {validationErrors.city}
-                </p>
-              )}
-            </div>
-            <div>
-              <label
-                className="block text-gray-700 text-sm font-bold mb-2"
-                htmlFor="country"
-              >
-                Country
-              </label>
-              <input
-                className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
-                  validationErrors.country ? "border-red-500" : ""
-                }`}
-                id="country"
-                type="text"
-                placeholder="Enter your country"
-                value={country}
-                onChange={(e) => {
-                  setCountry(e.target.value);
-                  handleFieldChange("country", e.target.value);
-                }}
-                required
-              />
-              {validationErrors.country && (
-                <p className="text-red-500 text-xs mt-1">
-                  {validationErrors.country}
-                </p>
-              )}
-            </div>
+            <LocationAutocomplete
+              value={city}
+              onChange={(value) => {
+                setCity(value);
+                handleFieldChange("city", value);
+              }}
+              placeholder="Enter your city"
+              label="City"
+              error={validationErrors.city}
+            />
+            <LocationAutocomplete
+              value={country}
+              onChange={(value) => {
+                setCountry(value);
+                handleFieldChange("country", value);
+              }}
+              placeholder="Enter your country"
+              label="Country"
+              error={validationErrors.country}
+            />
           </div>
 
           <div className="mb-4">
