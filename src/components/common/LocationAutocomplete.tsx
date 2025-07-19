@@ -143,8 +143,8 @@ export default function LocationAutocomplete({
               {suggestions.map((suggestion, index) => (
                 <li
                   key={suggestion.id}
-                  className={`px-3 py-2 cursor-pointer hover:bg-gray-100 ${
-                    index === selectedIndex ? "bg-gray-100" : ""
+                  className={`px-3 py-2 cursor-pointer hover:bg-orange hover:text-white transition-colors duration-200 ${
+                    index === selectedIndex ? "bg-orange text-white" : ""
                   }`}
                   onClick={() => handleSuggestionClick(suggestion)}
                 >
