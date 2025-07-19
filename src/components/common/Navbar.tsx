@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
+import { BsPersonFill } from "react-icons/bs";
 
 import Image from "next/image";
 import Link from "next/link";
@@ -30,7 +31,7 @@ function Navbar() {
           />
         </div>
       </Link>
-      <ul className="hidden md:flex text-sm text-white tracking-wider">
+      <ul className="hidden md:flex text-sm text-white tracking-wider items-center">
         <Link href="/">
           <li
             className={`px-6 lg:px-8 cursor-pointer uppercase ${
@@ -62,11 +63,12 @@ function Navbar() {
           <>
             <Link href="/profile">
               <li
-                className={`px-6 lg:px-8 cursor-pointer uppercase ${
-                  pathname === "/profile" ? "underline text-orange" : ""
+                className={`px-6 lg:px-8 cursor-pointer flex items-center ${
+                  pathname === "/profile" ? "text-orange" : ""
                 } hover:text-orange`}
+                title="Profile"
               >
-                Profile
+                <BsPersonFill size={24} />
               </li>
             </Link>
             <li
@@ -141,11 +143,13 @@ function Navbar() {
             <>
               <Link href="/profile" onClick={handleNav}>
                 <li
-                  className={`p-4 cursor-pointer uppercase ${
-                    pathname === "/profile" ? "underline text-orange" : ""
+                  className={`p-4 cursor-pointer flex items-center ${
+                    pathname === "/profile" ? "text-orange" : ""
                   } border-b border-gray`}
+                  title="Profile"
                 >
-                  Profile
+                  <BsPersonFill size={24} className="mr-2" />
+                  <span className="uppercase">Profile</span>
                 </li>
               </Link>
               <li
