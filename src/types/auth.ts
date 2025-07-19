@@ -1,6 +1,10 @@
 export interface User {
   id: number;
   email: string;
+  name: string;
+  surname: string;
+  city: string;
+  country: string;
   createdAt: string;
 }
 
@@ -27,6 +31,10 @@ export interface LoginData {
 export interface RegisterData {
   email: string;
   password: string;
+  name: string;
+  surname: string;
+  city: string;
+  country: string;
 }
 
 export interface AuthContextType {
@@ -34,6 +42,10 @@ export interface AuthContextType {
   isAuthenticated: boolean;
   isLoading: boolean;
   login: (email: string, password: string) => Promise<void>;
-  register: (email: string, password: string) => Promise<void>;
+  register: (
+    email: string,
+    password: string,
+    userData?: { name: string; surname: string; city: string; country: string }
+  ) => Promise<void>;
   logout: () => void;
 }

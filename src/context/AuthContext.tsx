@@ -42,8 +42,25 @@ export function AuthProvider({ children }: AuthProviderProps) {
     }
   };
 
-  const register = async (email: string, password: string) => {
-    const response = await AuthService.register({ email, password });
+  const register = async (
+    email: string,
+    password: string,
+    userData?: { name: string; surname: string; city: string; country: string }
+  ) => {
+    if (!userData) {
+      throw new Error("User data is required for registration");
+    }
+
+    const registerData = {
+      email,
+      password,
+      name: userData.name,
+      surname: userData.surname,
+      city: userData.city,
+      country: userData.country,
+    };
+
+    const response = await AuthService.register(registerData);
     console.log("AuthContext register response:", response);
 
     // Extract user from the response structure
