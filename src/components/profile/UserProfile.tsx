@@ -1,10 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useAuth } from "@/context/AuthContext";
-import { AuthService } from "@/services/auth";
-import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { getApiUrl } from "@/utils/api";
+import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
+import { Button } from "@/components/common";
 
 export default function UserProfile() {
   const { user } = useAuth();
@@ -12,12 +12,12 @@ export default function UserProfile() {
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-  const [message, setMessage] = useState("");
-  const [error, setError] = useState("");
   const [showCurrentPassword, setShowCurrentPassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
   const [showConfirmNewPassword, setShowConfirmNewPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [message, setMessage] = useState("");
+  const [error, setError] = useState("");
 
   const handleChangePassword = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -32,17 +32,17 @@ export default function UserProfile() {
     }
 
     if (newPassword.length < 6) {
-      setError("Password must be at least 6 characters long");
+      setError("New password must be at least 6 characters long");
       setIsLoading(false);
       return;
     }
 
     try {
       const response = await fetch(getApiUrl("auth/change-password"), {
-        method: "PUT",
+        method: "POST",
         headers: {
           "Content-Type": "application/json",
-          ...AuthService.getAuthHeaders(),
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
         body: JSON.stringify({
           currentPassword,
@@ -118,12 +118,9 @@ export default function UserProfile() {
 
           <div className="mb-6">
             <h2 className="text-lg font-semibold mb-4">Security</h2>
-            <button
-              onClick={() => setShowChangePassword(!showChangePassword)}
-              className="bg-orange hover:bg-orangeDark text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-            >
+            <Button onClick={() => setShowChangePassword(!showChangePassword)}>
               {showChangePassword ? "Cancel" : "Change Password"}
-            </button>
+            </Button>
           </div>
 
           {showChangePassword && (
@@ -147,9 +144,10 @@ export default function UserProfile() {
                     onChange={(e) => setCurrentPassword(e.target.value)}
                     required
                   />
-                  <button
+                  <Button
                     type="button"
-                    className="absolute inset-y-0 right-0 flex items-center px-3 text-gray-600 hover:text-gray-800"
+                    variant="icon"
+                    className="absolute inset-y-0 right-0 flex items-center px-3"
                     onClick={() => setShowCurrentPassword(!showCurrentPassword)}
                   >
                     {showCurrentPassword ? (
@@ -157,7 +155,7 @@ export default function UserProfile() {
                     ) : (
                       <AiOutlineEye size={20} />
                     )}
-                  </button>
+                  </Button>
                 </div>
               </div>
 
@@ -178,9 +176,10 @@ export default function UserProfile() {
                     onChange={(e) => setNewPassword(e.target.value)}
                     required
                   />
-                  <button
+                  <Button
                     type="button"
-                    className="absolute inset-y-0 right-0 flex items-center px-3 text-gray-600 hover:text-gray-800"
+                    variant="icon"
+                    className="absolute inset-y-0 right-0 flex items-center px-3"
                     onClick={() => setShowNewPassword(!showNewPassword)}
                   >
                     {showNewPassword ? (
@@ -188,7 +187,7 @@ export default function UserProfile() {
                     ) : (
                       <AiOutlineEye size={20} />
                     )}
-                  </button>
+                  </Button>
                 </div>
               </div>
 
@@ -209,9 +208,10 @@ export default function UserProfile() {
                     onChange={(e) => setConfirmPassword(e.target.value)}
                     required
                   />
-                  <button
+                  <Button
                     type="button"
-                    className="absolute inset-y-0 right-0 flex items-center px-3 text-gray-600 hover:text-gray-800"
+                    variant="icon"
+                    className="absolute inset-y-0 right-0 flex items-center px-3"
                     onClick={() =>
                       setShowConfirmNewPassword(!showConfirmNewPassword)
                     }
@@ -221,21 +221,13 @@ export default function UserProfile() {
                     ) : (
                       <AiOutlineEye size={20} />
                     )}
-                  </button>
+                  </Button>
                 </div>
               </div>
 
-              <button
-                type="submit"
-                className={`font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ${
-                  isLoading
-                    ? "bg-gray cursor-not-allowed text-white"
-                    : "bg-orange hover:bg-orangeDark text-white"
-                }`}
-                disabled={isLoading}
-              >
+              <Button type="submit" isLoading={isLoading} disabled={isLoading}>
                 {isLoading ? "Changing Password..." : "Change Password"}
-              </button>
+              </Button>
             </form>
           )}
         </div>

@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useAuth } from "@/context/AuthContext";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
+import { Button } from "@/components/common";
 
 interface LoginFormProps {
   onSuccess?: () => void;
@@ -88,9 +89,10 @@ export default function LoginForm({ onSuccess }: LoginFormProps) {
                 onChange={(e) => setPassword(e.target.value)}
                 required
               />
-              <button
+              <Button
                 type="button"
-                className="absolute inset-y-0 right-0 flex items-center px-3 text-gray-600 hover:text-gray-800"
+                variant="icon"
+                className="absolute inset-y-0 right-0 flex items-center px-3"
                 onClick={() => setShowPassword(!showPassword)}
               >
                 {showPassword ? (
@@ -98,22 +100,19 @@ export default function LoginForm({ onSuccess }: LoginFormProps) {
                 ) : (
                   <AiOutlineEye size={20} />
                 )}
-              </button>
+              </Button>
             </div>
           </div>
 
           <div className="flex items-center justify-between">
-            <button
-              className={`w-full font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ${
-                isLoading
-                  ? "bg-gray cursor-not-allowed text-white"
-                  : "bg-orange hover:bg-orangeDark text-white"
-              }`}
+            <Button
+              fullWidth
               type="submit"
+              isLoading={isLoading}
               disabled={isLoading}
             >
               {isLoading ? "Signing In..." : "Sign In"}
-            </button>
+            </Button>
           </div>
 
           <div className="mt-4 text-center">

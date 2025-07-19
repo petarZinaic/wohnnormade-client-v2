@@ -1,7 +1,5 @@
-import { TennantPreview } from '@/components/custom';
+import { TennantPreview } from "@/components/common";
 
 export default function TenantPreview() {
-  return (
-   <TennantPreview />
-  );
+  return <TennantPreview />;
 }

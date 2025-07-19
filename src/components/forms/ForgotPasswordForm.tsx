@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { getApiUrl } from "@/utils/api";
+import { Button } from "@/components/common";
 
 export default function ForgotPasswordForm() {
   const [email, setEmail] = useState("");
@@ -85,17 +86,14 @@ export default function ForgotPasswordForm() {
           </div>
 
           <div className="flex items-center justify-between">
-            <button
-              className={`w-full font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ${
-                isLoading
-                  ? "bg-gray cursor-not-allowed text-white"
-                  : "bg-orange hover:bg-orangeDark text-white"
-              }`}
+            <Button
+              fullWidth
               type="submit"
+              isLoading={isLoading}
               disabled={isLoading}
             >
               {isLoading ? "Sending..." : "Send Reset Link"}
-            </button>
+            </Button>
           </div>
 
           <div className="mt-6 text-center">
