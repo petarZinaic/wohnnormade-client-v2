@@ -118,9 +118,10 @@ export default function UserProfile() {
 
           <div className="mb-6">
             <h2 className="text-lg font-semibold mb-4">Security</h2>
-            <Button onClick={() => setShowChangePassword(!showChangePassword)}>
-              {showChangePassword ? "Cancel" : "Change Password"}
-            </Button>
+            <Button
+              onClick={() => setShowChangePassword(!showChangePassword)}
+              text={showChangePassword ? "Cancel" : "Change Password"}
+            />
           </div>
 
           {showChangePassword && (
@@ -225,9 +226,12 @@ export default function UserProfile() {
                 </div>
               </div>
 
-              <Button type="submit" isLoading={isLoading} disabled={isLoading}>
-                {isLoading ? "Changing Password..." : "Change Password"}
-              </Button>
+              <Button
+                type="submit"
+                isLoading={isLoading}
+                disabled={isLoading}
+                text={isLoading ? "Changing Password..." : "Change Password"}
+              />
             </form>
           )}
         </div>

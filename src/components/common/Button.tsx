@@ -1,7 +1,8 @@
 import React from "react";
 
 interface ButtonProps {
-  children: React.ReactNode;
+  text?: string;
+  children?: React.ReactNode;
   variant?: "primary" | "secondary" | "icon";
   size?: "sm" | "md" | "lg";
   fullWidth?: boolean;
@@ -13,6 +14,7 @@ interface ButtonProps {
 }
 
 export default function Button({
+  text,
   children,
   variant = "primary",
   size = "md",
@@ -53,6 +55,8 @@ export default function Button({
     .filter(Boolean)
     .join(" ");
 
+  const displayContent = isLoading ? "Loading..." : text || children;
+
   return (
     <button
       type={type}
@@ -60,7 +64,7 @@ export default function Button({
       onClick={onClick}
       disabled={disabled || isLoading}
     >
-      {isLoading ? "Loading..." : children}
+      {displayContent}
     </button>
   );
 }

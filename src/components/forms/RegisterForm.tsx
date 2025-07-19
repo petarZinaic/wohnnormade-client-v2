@@ -293,9 +293,8 @@ export default function RegisterForm({ onSuccess }: RegisterFormProps) {
               type="submit"
               isLoading={isLoading}
               disabled={isLoading}
-            >
-              {isLoading ? "Creating Account..." : "Create Account"}
-            </Button>
+              text={isLoading ? "Creating Account..." : "Create Account"}
+            />
           </div>
 
           <div className="mt-6 text-center">

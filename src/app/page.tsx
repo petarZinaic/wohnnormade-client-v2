@@ -1,8 +1,13 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/common";
+import { useAuth } from "@/context/AuthContext";
 
 export default function Home() {
+  const { isAuthenticated } = useAuth();
+
   return (
     <main>
       <div className="container mx-auto p-4 mt-20 font-Montserrat">
@@ -16,7 +21,11 @@ export default function Home() {
               Find out which tenants didn't pay for their rentals or left the
               place in a mess. Register and find the necessary information.
             </p>
-            <Button size="lg">Register</Button>
+            {!isAuthenticated && (
+              <Link href="/register">
+                <Button size="lg" text="Register" />
+              </Link>
+            )}
           </div>
           <div className="lg:w-1/2 flex justify-center p-4">
             <Image
@@ -49,7 +58,7 @@ export default function Home() {
               bad experience to prevent others from having it.
             </p>
             <Link href="/contribute">
-              <Button size="lg">Report tenant</Button>
+              <Button size="lg" text="Report tenant" />
             </Link>
           </div>
         </div>

@@ -144,7 +144,7 @@ export default function ReportTennantForm() {
             </div>
           </div>
           <div className="flex items-center justify-between">
-            <Button type="submit">Submit</Button>
+            <Button type="submit" text="Submit" />
           </div>
         </form>
       </div>

@@ -91,9 +91,8 @@ export default function ForgotPasswordForm() {
               type="submit"
               isLoading={isLoading}
               disabled={isLoading}
-            >
-              {isLoading ? "Sending..." : "Send Reset Link"}
-            </Button>
+              text={isLoading ? "Sending..." : "Send Reset Link"}
+            />
           </div>
 
           <div className="mt-6 text-center">

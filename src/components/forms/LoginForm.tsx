@@ -110,9 +110,8 @@ export default function LoginForm({ onSuccess }: LoginFormProps) {
               type="submit"
               isLoading={isLoading}
               disabled={isLoading}
-            >
-              {isLoading ? "Signing In..." : "Sign In"}
-            </Button>
+              text={isLoading ? "Signing In..." : "Sign In"}
+            />
           </div>
 
           <div className="mt-4 text-center">
