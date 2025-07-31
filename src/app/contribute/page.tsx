@@ -1,8 +1,10 @@
-import { ReportTennantForm } from '@/components/forms';
-
+import { ReportTennantForm } from "@/components/forms";
+import ProtectedRoute from "@/components/auth/ProtectedRoute";
 
 export default function Contribute() {
   return (
-    <ReportTennantForm />
-  )
+    <ProtectedRoute message="You need to be logged in to contribute tenant reports. Redirecting to login...">
+      <ReportTennantForm />
+    </ProtectedRoute>
+  );
 }

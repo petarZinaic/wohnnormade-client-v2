@@ -1,24 +1,32 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
   redirectTo?: string;
+  message?: string;
 }
 
 export default function ProtectedRoute({
   children,
   redirectTo = "/login",
+  message = "You need to be logged in to access this page. Redirecting to login...",
 }: ProtectedRouteProps) {
   const { isAuthenticated, isLoading } = useAuth();
   const router = useRouter();
+  const [showMessage, setShowMessage] = useState(false);
 
   useEffect(() => {
     if (!isLoading && !isAuthenticated) {
-      router.push(redirectTo);
+      setShowMessage(true);
+      const timer = setTimeout(() => {
+        router.push(redirectTo);
+      }, 2000);
+
+      return () => clearTimeout(timer);
     }
   }, [isAuthenticated, isLoading, router, redirectTo]);
 
@@ -31,7 +39,20 @@ export default function ProtectedRoute({
   }
 
   if (!isAuthenticated) {
-    return null;
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-gray-50">
+        <div className="text-center p-8 bg-white rounded-lg shadow-md max-w-md">
+          <div className="text-orange-500 text-6xl mb-4">🔒</div>
+          <h2 className="text-2xl font-bold text-gray-800 mb-4">
+            Authentication Required
+          </h2>
+          <p className="text-gray-600 mb-4">{message}</p>
+          <div className="flex justify-center">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-orange-500"></div>
+          </div>
+        </div>
+      </div>
+    );
   }
 
   return <>{children}</>;
