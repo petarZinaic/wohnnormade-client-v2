@@ -71,12 +71,6 @@ function Navbar() {
                 <BsPersonFill size={24} />
               </li>
             </Link>
-            <li
-              className="px-6 lg:px-8 cursor-pointer uppercase text-yellow-400 hover:text-red-500"
-              onClick={logout}
-            >
-              Logout
-            </li>
           </>
         ) : (
           <>
@@ -152,15 +146,6 @@ function Navbar() {
                   <span className="uppercase">Profile</span>
                 </li>
               </Link>
-              <li
-                className="p-4 cursor-pointer uppercase text-yellow-400 hover:text-red-500 border-b border-gray"
-                onClick={() => {
-                  logout();
-                  handleNav();
-                }}
-              >
-                Logout
-              </li>
             </>
           ) : (
             <>
