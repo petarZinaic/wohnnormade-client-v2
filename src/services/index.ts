@@ -6,3 +6,4 @@ export type { LocationSuggestion, NominatimResponse } from "./location";
 export { AuthService } from "./auth";
 export { default as UserService } from "./user";
 export type { UpdateUserData, UserProfile } from "./user";
+export { default as TenantService } from "./tenant";
