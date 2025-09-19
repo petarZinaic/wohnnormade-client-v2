@@ -55,7 +55,7 @@ export default function Button({
       case "outline":
         return "bg-transparent hover:bg-gray-50 text-gray-700 border border-gray-300 hover:border-gray-400 focus:ring-gray-500";
       case "icon":
-        return "bg-transparent hover:bg-gray-100 text-gray-700 border border-transparent hover:border-gray-200 focus:ring-gray-500";
+        return "bg-transparent hover:bg-gray-100 text-gray-700 border-transparent focus:ring-gray-500";
       case "primary":
       default:
         return "bg-orange hover:bg-orangeDark text-white border border-orange hover:border-orangeDark focus:ring-orange";
