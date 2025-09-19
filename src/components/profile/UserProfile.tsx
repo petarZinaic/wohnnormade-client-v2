@@ -241,7 +241,7 @@ export default function UserProfile() {
                   <label className="block text-gray-700 text-sm font-bold mb-2">
                     Email Address
                   </label>
-                  <p className="text-gray-900 bg-gray-50 p-2 rounded">
+                  <p className="text-gray-900 bg-orange-50 border border-orange-200 p-2 rounded">
                     {user.email}
                   </p>
                 </div>
@@ -249,7 +249,7 @@ export default function UserProfile() {
                   <label className="block text-gray-700 text-sm font-bold mb-2">
                     Member Since
                   </label>
-                  <p className="text-gray-900 bg-gray-50 p-2 rounded">
+                  <p className="text-gray-900 bg-sky-50 border border-sky-200 p-2 rounded">
                     {user.createdAt
                       ? new Date(user.createdAt).toLocaleDateString()
                       : "N/A"}
@@ -259,7 +259,7 @@ export default function UserProfile() {
                   <label className="block text-gray-700 text-sm font-bold mb-2">
                     Name
                   </label>
-                  <p className="text-gray-900 bg-gray-50 p-2 rounded">
+                  <p className="text-gray-900 bg-emerald-50 border border-emerald-200 p-2 rounded">
                     {user.name}
                   </p>
                 </div>
@@ -267,7 +267,7 @@ export default function UserProfile() {
                   <label className="block text-gray-700 text-sm font-bold mb-2">
                     Surname
                   </label>
-                  <p className="text-gray-900 bg-gray-50 p-2 rounded">
+                  <p className="text-gray-900 bg-violet-50 border border-violet-200 p-2 rounded">
                     {user.surname}
                   </p>
                 </div>
@@ -275,7 +275,7 @@ export default function UserProfile() {
                   <label className="block text-gray-700 text-sm font-bold mb-2">
                     City
                   </label>
-                  <p className="text-gray-900 bg-gray-50 p-2 rounded">
+                  <p className="text-gray-900 bg-amber-50 border border-amber-200 p-2 rounded">
                     {user.city}
                   </p>
                 </div>
@@ -283,7 +283,7 @@ export default function UserProfile() {
                   <label className="block text-gray-700 text-sm font-bold mb-2">
                     Country
                   </label>
-                  <p className="text-gray-900 bg-gray-50 p-2 rounded">
+                  <p className="text-gray-900 bg-rose-50 border border-rose-200 p-2 rounded">
                     {user.country}
                   </p>
                 </div>
