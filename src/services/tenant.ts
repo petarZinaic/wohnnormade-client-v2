@@ -4,7 +4,7 @@ import { AuthService } from "./auth";
 
 class TenantService {
   static async getTenants(): Promise<ApiResponse<Tenant[]>> {
-    const response = await fetch(getApiUrl("/contribute/tenants"), {
+    const response = await fetch(getApiUrl("/tenant"), {
       headers: {
         "Content-Type": "application/json",
         ...AuthService.getAuthHeaders(),
@@ -14,7 +14,7 @@ class TenantService {
   }
 
   static async getTenantById(id: number): Promise<ApiResponse<Tenant>> {
-    const response = await fetch(getApiUrl(`/contribute/tenants/${id}`), {
+    const response = await fetch(getApiUrl(`/tenant/${id}`), {
       headers: {
         "Content-Type": "application/json",
         ...AuthService.getAuthHeaders(),
@@ -26,7 +26,7 @@ class TenantService {
   static async createTenant(
     data: CreateTenantData
   ): Promise<ApiResponse<Tenant>> {
-    const response = await fetch(getApiUrl("/contribute/create-tennant"), {
+    const response = await fetch(getApiUrl("/tenant/create"), {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -34,6 +34,17 @@ class TenantService {
       },
       body: JSON.stringify(data),
     });
+    if (!response.ok) {
+      let errorBody: any = {};
+      try {
+        errorBody = await response.json();
+      } catch {}
+      const message =
+        errorBody?.error?.message ||
+        errorBody?.message ||
+        "Failed to create tenant";
+      throw new Error(message);
+    }
     return response.json();
   }
 }

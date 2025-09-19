@@ -119,8 +119,8 @@ export default function ReportTennantForm() {
                 <option value="" disabled>
                   Select Violation Type
                 </option>
-                <option value="rentNotPaid">Rent Not Paid</option>
-                <option value="propertyWrecked">Property Wrecked</option>
+                <option value="Rent Not Paid">Rent Not Paid</option>
+                <option value="Propetry Vrecked">Propetry Vrecked</option>
               </select>
             </div>
             <div className="mb-4 col-span-1 md:col-span-2">
