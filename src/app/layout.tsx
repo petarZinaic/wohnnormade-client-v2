@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { Footer, Navbar } from "@/components/common";
 import { AuthProvider } from "@/context/AuthContext";
+import { TenantProvider } from "@/context/TenantContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,9 +22,11 @@ export default function RootLayout({
       <link rel="icon" href="/assets/icons/favicon.png" />
       <body className={inter.className}>
         <AuthProvider>
-          <Navbar />
-          {children}
-          <Footer />
+          <TenantProvider>
+            <Navbar />
+            {children}
+            <Footer />
+          </TenantProvider>
         </AuthProvider>
       </body>
     </html>

@@ -1,35 +1,47 @@
 "use client";
 
 import { useState } from "react";
-import { Button } from "@/components/common";
+import { useRouter } from "next/navigation";
+import { Button, LocationAutocomplete } from "@/components/common";
+import { useTenant } from "@/context/TenantContext";
+import type { CreateTenantData } from "@/types";
 
 export default function ReportTennantForm() {
+  const { createTenant, isLoading } = useTenant();
+  const router = useRouter();
   const [tenantName, setTenantName] = useState("");
   const [tenantSurname, setTenantSurname] = useState("");
   const [city, setCity] = useState("");
   const [country, setCountry] = useState("");
   const [violationType, setViolationType] = useState("");
   const [description, setDescription] = useState("");
+  const [error, setError] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const formData = {
-      tenantName,
-      tenantSurname,
+    setError("");
+
+    const data: CreateTenantData = {
+      name: tenantName,
+      surname: tenantSurname,
       city,
       country,
       violationType,
       description,
     };
 
-    localStorage.setItem("tenantReport", JSON.stringify(formData));
-
-    setTenantName("");
-    setTenantSurname("");
-    setCity("");
-    setCountry("");
-    setViolationType("");
-    setDescription("");
+    try {
+      await createTenant(data);
+      router.push("/contribute/success");
+      setTenantName("");
+      setTenantSurname("");
+      setCity("");
+      setCountry("");
+      setViolationType("");
+      setDescription("");
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Failed to submit report");
+    }
   };
 
   return (
@@ -41,6 +53,11 @@ export default function ReportTennantForm() {
           </h1>
         </div>
         <form className="p-4" onSubmit={handleSubmit}>
+          {error && (
+            <div className="mb-3 p-2 bg-red-100 border border-red-300 text-red-800 rounded">
+              {error}
+            </div>
+          )}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
             <div className="mb-2">
               <label
@@ -74,38 +91,18 @@ export default function ReportTennantForm() {
                 onChange={(e) => setTenantSurname(e.target.value)}
               />
             </div>
-            <div className="mb-4">
-              <label
-                className="block text-gray-700 text-sm font-bold mb-2"
-                htmlFor="city"
-              >
-                City
-              </label>
-              <input
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                id="city"
-                type="text"
-                placeholder="City"
-                value={city}
-                onChange={(e) => setCity(e.target.value)}
-              />
-            </div>
-            <div className="mb-4">
-              <label
-                className="block text-gray-700 text-sm font-bold mb-2"
-                htmlFor="country"
-              >
-                Country
-              </label>
-              <input
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                id="country"
-                type="text"
-                placeholder="Country"
-                value={country}
-                onChange={(e) => setCountry(e.target.value)}
-              />
-            </div>
+            <LocationAutocomplete
+              value={city}
+              onChange={setCity}
+              placeholder="Enter your city"
+              label="City"
+            />
+            <LocationAutocomplete
+              value={country}
+              onChange={setCountry}
+              placeholder="Enter your country"
+              label="Country"
+            />
             <div className="mb-4 col-span-1 md:col-span-2">
               <label
                 className="block text-gray-700 text-sm font-bold mb-2"
@@ -144,7 +141,12 @@ export default function ReportTennantForm() {
             </div>
           </div>
           <div className="flex items-center justify-between">
-            <Button type="submit" text="Submit" />
+            <Button
+              type="submit"
+              isLoading={isLoading}
+              disabled={isLoading}
+              text={isLoading ? "Submitting..." : "Submit"}
+            />
           </div>
         </form>
       </div>
