@@ -5,11 +5,16 @@ export interface TenantAuthor {
   surname: string;
 }
 
+export enum ViolationType {
+  RentNotPaid = "Rent Not Paid",
+  PropetryWrecked = "Propetry Wrecked",
+}
+
 export interface Tenant {
   id: number;
   name: string;
   surname: string;
-  violationType: string;
+  violationType: ViolationType | string;
   description: string;
   city: string;
   country: string;
@@ -19,10 +24,14 @@ export interface Tenant {
   createdBy: TenantAuthor;
 }
 
-export type CreateTenantData = Pick<
-  Tenant,
-  "name" | "surname" | "violationType" | "description" | "city" | "country"
->;
+export interface CreateTenantData {
+  name: string;
+  surname: string;
+  violationType: ViolationType;
+  description: string;
+  city: string;
+  country: string;
+}
 
 export interface ApiResponse<T> {
   result: T;

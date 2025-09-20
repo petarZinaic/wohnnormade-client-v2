@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { Button, LocationAutocomplete } from "@/components/common";
 import { useTenant } from "@/context/TenantContext";
 import type { CreateTenantData } from "@/types";
+import { ViolationType } from "@/types";
 
 export default function ReportTennantForm() {
   const { createTenant, isLoading } = useTenant();
@@ -13,7 +14,7 @@ export default function ReportTennantForm() {
   const [tenantSurname, setTenantSurname] = useState("");
   const [city, setCity] = useState("");
   const [country, setCountry] = useState("");
-  const [violationType, setViolationType] = useState("");
+  const [violationType, setViolationType] = useState<ViolationType | "">("");
   const [description, setDescription] = useState("");
   const [error, setError] = useState("");
 
@@ -26,7 +27,7 @@ export default function ReportTennantForm() {
       surname: tenantSurname,
       city,
       country,
-      violationType,
+      violationType: violationType as ViolationType,
       description,
     };
 
@@ -114,13 +115,17 @@ export default function ReportTennantForm() {
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 id="violationType"
                 value={violationType}
-                onChange={(e) => setViolationType(e.target.value)}
+                onChange={(e) =>
+                  setViolationType(e.target.value as ViolationType)
+                }
               >
                 <option value="" disabled>
                   Select Violation Type
                 </option>
-                <option value="Rent Not Paid">Rent Not Paid</option>
-                <option value="Propetry Wrecked">Propetry Wrecked</option>
+                <option value={ViolationType.RentNotPaid}>Rent Not Paid</option>
+                <option value={ViolationType.PropetryWrecked}>
+                  Propetry Wrecked
+                </option>
               </select>
             </div>
             <div className="mb-4 col-span-1 md:col-span-2">
