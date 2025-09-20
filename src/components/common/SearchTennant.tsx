@@ -79,7 +79,7 @@ export default function SearchTennant() {
           {suggestions.map((tenant) => (
             <li
               key={tenant.id}
-              className="p-3 cursor-pointer hover:bg-gray-50 flex items-center justify-between"
+              className="p-3 cursor-pointer hover:bg-orange hover:text-white transition-colors flex items-center justify-between"
               onClick={() => handleSelectTenant(tenant)}
             >
               <div>
