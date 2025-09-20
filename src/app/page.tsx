@@ -4,9 +4,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/common";
 import { useAuth } from "@/context/AuthContext";
+import { useTranslation } from "react-i18next";
 
 export default function Home() {
   const { isAuthenticated } = useAuth();
+  const { t } = useTranslation();
 
   return (
     <main>
@@ -14,16 +16,14 @@ export default function Home() {
         <div className="flex flex-col lg:flex-row justify-between items-center">
           <div className="lg:w-1/2 text-center lg:text-left p-4">
             <h1 className="text-4xl font-bold mb-4">
-              Who <span className="text-orange">NOT</span> to rent your
-              apartment to?
+              {t("home.title")}{" "}
+              <span className="text-orange">{t("home.titleSpan")}</span>{" "}
+              {t("home.titleSpan2")}
             </h1>
-            <p className="mb-6 text-xl text-gray">
-              Find out which tenants didn't pay for their rentals or left the
-              place in a mess. Register and find the necessary information.
-            </p>
+            <p className="mb-6 text-xl text-gray">{t("home.subtitle")}</p>
             {!isAuthenticated && (
               <Link href="/register">
-                <Button size="lg" text="Register" />
+                <Button size="lg" text={t("home.register")} />
               </Link>
             )}
           </div>
@@ -47,18 +47,16 @@ export default function Home() {
           </div>
           <div className="lg:w-1/2 text-center lg:text-left p-4">
             <h2 className="text-xl font-bold mb-4 text-orange">
-              HELP FELLOW LANDLORDS
+              {t("home.helpTitle")}
             </h2>
             <h3 className="text-4xl font-bold mb-4">
-              Become part of a community
+              {t("home.communityTitle")}
             </h3>
             <p className="mb-6 text-xl text-gray">
-              that alerts other landlords of tenants that damaged their property
-              or didn't pay for rent. Register and leave information about your
-              bad experience to prevent others from having it.
+              {t("home.communitySubtitle")}
             </p>
             <Link href="/contribute">
-              <Button size="lg" text="Report tenant" />
+              <Button size="lg" text={t("home.reportTenant")} />
             </Link>
           </div>
         </div>

@@ -1,0 +1,34 @@
+{
+  "navigation": {
+    "home": "Startseite",
+    "contribute": "Beitragen",
+    "search": "Suchen",
+    "login": "Anmelden",
+    "profile": "Profil"
+  },
+  "language": {
+    "select": "Sprache auswählen",
+    "english": "English",
+    "german": "Deutsch"
+  },
+  "common": {
+    "loading": "Lädt...",
+    "error": "Fehler",
+    "success": "Erfolg",
+    "cancel": "Abbrechen",
+    "save": "Speichern",
+    "edit": "Bearbeiten",
+    "delete": "Löschen"
+  },
+  "home": {
+    "title": "An wen Sie Ihre Wohnung",
+    "titleSpan": "NICHT",
+    "titleSpan2": "vermieten sollten?",
+    "subtitle": "Finden Sie heraus, welche Mieter ihre Miete nicht bezahlt oder die Wohnung in einem schlechten Zustand hinterlassen haben. Registrieren Sie sich und finden Sie die notwendigen Informationen.",
+    "register": "Registrieren",
+    "helpTitle": "HELFEN SIE ANDEREN VERMIETERN",
+    "communityTitle": "Werden Sie Teil einer Gemeinschaft",
+    "communitySubtitle": "die andere Vermieter vor Mietern warnt, die ihr Eigentum beschädigt oder die Miete nicht bezahlt haben. Registrieren Sie sich und hinterlassen Sie Informationen über Ihre schlechte Erfahrung, um andere davor zu bewahren.",
+    "reportTenant": "Mieter melden"
+  }
+}

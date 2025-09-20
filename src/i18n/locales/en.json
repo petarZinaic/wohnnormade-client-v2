@@ -1,0 +1,34 @@
+{
+  "navigation": {
+    "home": "Home",
+    "contribute": "Contribute",
+    "search": "Search",
+    "login": "Login",
+    "profile": "Profile"
+  },
+  "language": {
+    "select": "Select Language",
+    "english": "English",
+    "german": "Deutsch"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "cancel": "Cancel",
+    "save": "Save",
+    "edit": "Edit",
+    "delete": "Delete"
+  },
+  "home": {
+    "title": "Who",
+    "titleSpan": "NOT",
+    "titleSpan2": "to rent your apartment to?",
+    "subtitle": "Find out which tenants didn't pay for their rentals or left the place in a mess. Register and find the necessary information.",
+    "register": "Register",
+    "helpTitle": "HELP FELLOW LANDLORDS",
+    "communityTitle": "Become part of a community",
+    "communitySubtitle": "that alerts other landlords of tenants that damaged their property or didn't pay for rent. Register and leave information about your bad experience to prevent others from having it.",
+    "reportTenant": "Report tenant"
+  }
+}

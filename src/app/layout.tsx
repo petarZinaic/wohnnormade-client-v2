@@ -5,6 +5,8 @@ import "react-datepicker/dist/react-datepicker.css";
 import { Footer, Navbar } from "@/components/common";
 import { AuthProvider } from "@/context/AuthContext";
 import { TenantProvider } from "@/context/TenantContext";
+import { LanguageProvider } from "@/context/LanguageContext";
+import { I18nProvider } from "@/components/providers/I18nProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,13 +24,17 @@ export default function RootLayout({
     <html lang="en">
       <link rel="icon" href="/assets/icons/favicon.png" />
       <body className={inter.className}>
-        <AuthProvider>
-          <TenantProvider>
-            <Navbar />
-            {children}
-            <Footer />
-          </TenantProvider>
-        </AuthProvider>
+        <I18nProvider>
+          <LanguageProvider>
+            <AuthProvider>
+              <TenantProvider>
+                <Navbar />
+                {children}
+                <Footer />
+              </TenantProvider>
+            </AuthProvider>
+          </LanguageProvider>
+        </I18nProvider>
       </body>
     </html>
   );

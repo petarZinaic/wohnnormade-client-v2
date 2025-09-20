@@ -3,17 +3,20 @@
 import { useState } from "react";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 import { BsPersonFill } from "react-icons/bs";
+import { useTranslation } from "react-i18next";
 
 import Image from "next/image";
 import Link from "next/link";
 
 import { usePathname } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
+import LanguageSelector from "./LanguageSelector";
 
 function Navbar() {
   const [nav, setNav] = useState(true);
   const pathname = usePathname();
   const { user, isAuthenticated, logout } = useAuth();
+  const { t } = useTranslation();
 
   function handleNav() {
     setNav(!nav);
@@ -38,7 +41,7 @@ function Navbar() {
               pathname === "/" ? "underline text-orange" : ""
             } hover:text-orange`}
           >
-            Home
+            {t("navigation.home")}
           </li>
         </Link>
         <Link href="/contribute">
@@ -47,7 +50,7 @@ function Navbar() {
               pathname === "/contribute" ? "underline text-orange" : ""
             } hover:text-orange`}
           >
-            Contribute
+            {t("navigation.contribute")}
           </li>
         </Link>
         <Link href="/search">
@@ -56,9 +59,12 @@ function Navbar() {
               pathname === "/search" ? "underline text-orange" : ""
             } hover:text-orange`}
           >
-            Search
+            {t("navigation.search")}
           </li>
         </Link>
+        <li className="px-4">
+          <LanguageSelector />
+        </li>
         {isAuthenticated ? (
           <>
             <Link href="/profile">
@@ -66,7 +72,7 @@ function Navbar() {
                 className={`px-6 lg:px-8 cursor-pointer flex items-center ${
                   pathname === "/profile" ? "text-orange" : ""
                 } hover:text-orange`}
-                title="Profile"
+                title={t("navigation.profile")}
               >
                 <BsPersonFill size={24} />
               </li>
@@ -80,7 +86,7 @@ function Navbar() {
                   pathname === "/login" ? "underline text-orange" : ""
                 } hover:text-orange`}
               >
-                Login
+                {t("navigation.login")}
               </li>
             </Link>
           </>
@@ -112,7 +118,7 @@ function Navbar() {
                 pathname === "/" ? "underline text-orange" : ""
               } border-b border-gray`}
             >
-              Home
+              {t("navigation.home")}
             </li>
           </Link>
           <Link href="/contribute" onClick={handleNav}>
@@ -121,7 +127,7 @@ function Navbar() {
                 pathname === "/contribute" ? "underline text-orange" : ""
               } border-b border-gray`}
             >
-              Contribute
+              {t("navigation.contribute")}
             </li>
           </Link>
           <Link href="/search" onClick={handleNav}>
@@ -130,9 +136,15 @@ function Navbar() {
                 pathname === "/search" ? "underline text-orange" : ""
               } border-b border-gray`}
             >
-              Search
+              {t("navigation.search")}
             </li>
           </Link>
+          <li className="p-4 border-b border-gray">
+            <div className="flex items-center justify-between">
+              <span className="text-sm">🌐 {t("language.select")}</span>
+              <LanguageSelector />
+            </div>
+          </li>
           {isAuthenticated ? (
             <>
               <Link href="/profile" onClick={handleNav}>
@@ -140,10 +152,10 @@ function Navbar() {
                   className={`p-4 cursor-pointer flex items-center ${
                     pathname === "/profile" ? "text-orange" : ""
                   } border-b border-gray`}
-                  title="Profile"
+                  title={t("navigation.profile")}
                 >
                   <BsPersonFill size={24} className="mr-2" />
-                  <span className="uppercase">Profile</span>
+                  <span className="uppercase">{t("navigation.profile")}</span>
                 </li>
               </Link>
             </>
@@ -155,7 +167,7 @@ function Navbar() {
                     pathname === "/login" ? "underline text-orange" : ""
                   } border-b border-gray`}
                 >
-                  Login
+                  {t("navigation.login")}
                 </li>
               </Link>
             </>
