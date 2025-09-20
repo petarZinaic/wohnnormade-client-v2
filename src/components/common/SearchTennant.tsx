@@ -1,77 +1,102 @@
-"use client"
+"use client";
 
-import {useState, useEffect} from "react";
-import {useRouter} from "next/navigation";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { TenantService } from "@/services";
+import type { Tenant } from "@/types";
 
 export default function SearchTennant() {
   const [searchTerm, setSearchTerm] = useState("");
-  const [tenantData, setTenantData] = useState<any>(null);
-  const [suggestions, setSuggestions] = useState<any[]>([]);
+  const [suggestions, setSuggestions] = useState<Tenant[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
   const router = useRouter();
 
   useEffect(() => {
-    const storedData = localStorage.getItem("tenantReport");
-    if (storedData) {
-      try {
-        const tenant = JSON.parse(storedData);
-        if (typeof tenant === 'object' && tenant !== null) {
-          setTenantData(tenant);
-        } else {
-          console.error("Stored tenant data is not an object:", tenant);
-        }
-      } catch (error) {
-        console.error("Failed to parse tenant data:", error);
-      }
+    if (searchTerm.trim().length < 2) {
+      setSuggestions([]);
+      setError("");
+      return;
     }
-  }, []);
+
+    const controller = new AbortController();
+    const timeout = setTimeout(async () => {
+      setIsLoading(true);
+      setError("");
+      try {
+        const res = await TenantService.searchTenantsByName(searchTerm);
+        const list = (res as any).result || (res as any).data || res;
+        setSuggestions(Array.isArray(list) ? list : []);
+      } catch (err) {
+        setError(
+          err instanceof Error ? err.message : "Failed to search tenants"
+        );
+        setSuggestions([]);
+      } finally {
+        setIsLoading(false);
+      }
+    }, 400);
+
+    return () => {
+      clearTimeout(timeout);
+      controller.abort();
+    };
+  }, [searchTerm]);
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    setSearchTerm(value);
-
-    if(value.trim() === "") {
-      setSuggestions([]);
-      return;
-    }
-
-    if (tenantData) {
-      const matches = `${tenantData.tenantName} ${tenantData.tenantSurname}`
-        .toLowerCase()
-        .includes(value.toLowerCase());
-      setSuggestions(matches ? [tenantData] : []);
-
-      return;
-    }
+    setSearchTerm(e.target.value);
   };
 
-  const handleSelectTenant = (tenant: any) => {
-    router.push(`/tenant-preview?tenant=${encodeURIComponent(JSON.stringify(tenant))}`);
+  const handleSelectTenant = (tenant: Tenant) => {
+    router.push(
+      `/tenant-preview?tenant=${encodeURIComponent(JSON.stringify(tenant))}`
+    );
   };
-
 
   return (
-    <div className="w-full max-w-md p-4">
-    <input
-      type="text"
-      placeholder="Search tenant..."
-      className="w-full p-2 border rounded"
-      value={searchTerm}
-      onChange={handleSearch}
-    />
-    {suggestions.length > 0 && (
-      <ul className="bg-white border mt-2 w-full rounded-lg shadow-lg">{
-        suggestions.map((tenant, index) => (
-          <li
-            key={index}
-            className="p-2 cursor-pointer hover:bg-gray-200"
-            onClick={() => handleSelectTenant(tenant)}
-          >
-            {tenant.tenantName} {tenant.tenantSurname}
-          </li>
-        ))
-      }
-      </ul>
-    )}
-  </div>
-  )
+    <div className="w-full max-w-xl p-4">
+      <div className="relative">
+        <input
+          type="text"
+          placeholder="Search tenant by name..."
+          className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-orange focus:border-orange"
+          value={searchTerm}
+          onChange={handleSearch}
+        />
+        {isLoading && (
+          <div className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm">
+            Loading...
+          </div>
+        )}
+      </div>
+      {error && (
+        <div className="mt-2 p-2 text-sm bg-red-50 border border-red-200 text-red-700 rounded">
+          {error}
+        </div>
+      )}
+      {suggestions.length > 0 && (
+        <ul className="bg-white border mt-2 w-full rounded-lg shadow-lg max-h-72 overflow-y-auto">
+          {suggestions.map((tenant) => (
+            <li
+              key={tenant.id}
+              className="p-3 cursor-pointer hover:bg-gray-50 flex items-center justify-between"
+              onClick={() => handleSelectTenant(tenant)}
+            >
+              <div>
+                <div className="font-medium">
+                  {tenant.name} {tenant.surname}
+                </div>
+                <div className="text-xs text-gray-500">
+                  {tenant.city}, {tenant.country}
+                </div>
+              </div>
+              <span className="text-xs text-gray-400">
+                {tenant.violationType}
+              </span>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
 }

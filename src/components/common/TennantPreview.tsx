@@ -26,7 +26,8 @@ export default function TennantPreview() {
       <div className="w-full max-w-md p-4 bg-white rounded-lg shadow-lg">
         <h1 className="text-2xl font-bold mb-4">Tenant Details</h1>
         <p>
-          <strong>Name:</strong> {tenant.tenantName} {tenant.tenantSurname}
+          <strong>Name:</strong> {tenant.name || tenant.tenantName}{" "}
+          {tenant.surname || tenant.tenantSurname}
         </p>
         <p>
           <strong>City:</strong> {tenant.city}

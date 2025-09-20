@@ -23,6 +23,19 @@ class TenantService {
     return response.json();
   }
 
+  static async searchTenantsByName(
+    name: string
+  ): Promise<ApiResponse<Tenant[]>> {
+    const url = getApiUrl(`/tenant/search?name=${encodeURIComponent(name)}`);
+    const response = await fetch(url, {
+      headers: {
+        "Content-Type": "application/json",
+        ...AuthService.getAuthHeaders(),
+      },
+    });
+    return response.json();
+  }
+
   static async createTenant(
     data: CreateTenantData
   ): Promise<ApiResponse<Tenant>> {
