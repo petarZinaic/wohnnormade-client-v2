@@ -30,5 +30,29 @@
     "communityTitle": "Become part of a community",
     "communitySubtitle": "that alerts other landlords of tenants that damaged their property or didn't pay for rent. Register and leave information about your bad experience to prevent others from having it.",
     "reportTenant": "Report tenant"
+  },
+  "contribute": {
+    "title": "Report Tenant",
+    "tenantName": "Tenant Name",
+    "tenantSurname": "Tenant Surname",
+    "city": "City",
+    "country": "Country",
+    "dateOfBirth": "Date of Birth",
+    "violationType": "Violation Type",
+    "description": "Description of Violation",
+    "selectViolationType": "Select Violation Type",
+    "rentNotPaid": "Rent Not Paid",
+    "propertyWrecked": "Property Wrecked",
+    "submit": "Submit",
+    "submitting": "Submitting...",
+    "submitError": "Failed to submit report",
+    "authRequired": "Authentication Required",
+    "authMessage": "You need to be logged in to contribute tenant reports. Redirecting to login...",
+    "loading": "Loading..."
+  },
+  "contributeSuccess": {
+    "title": "Tenant report submitted successfully.",
+    "message": "Thank you for helping the community.",
+    "goToSearch": "Go to Search"
   }
 }

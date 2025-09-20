@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useTranslation } from "react-i18next";
 import { Button, LocationAutocomplete } from "@/components/common";
 import DatePicker from "react-datepicker";
 import { useTenant } from "@/context/TenantContext";
@@ -9,6 +10,7 @@ import type { CreateTenantData } from "@/types";
 import { ViolationType } from "@/types";
 
 export default function ReportTennantForm() {
+  const { t } = useTranslation();
   const { createTenant, isLoading } = useTenant();
   const router = useRouter();
   const [tenantName, setTenantName] = useState("");
@@ -53,7 +55,9 @@ export default function ReportTennantForm() {
       setDateOfBirth(null);
       setDescription("");
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to submit report");
+      setError(
+        err instanceof Error ? err.message : t("contribute.submitError")
+      );
     }
   };
 
@@ -62,7 +66,7 @@ export default function ReportTennantForm() {
       <div className="w-full max-w-3xl mx-auto bg-white rounded-lg shadow-md max-h-screen overflow-y-auto">
         <div className="bg-orange text-white rounded-t-lg">
           <h1 className="text-xl text-center font-bold mb-6 py-2">
-            Report Tenant
+            {t("contribute.title")}
           </h1>
         </div>
         <form className="p-4" onSubmit={handleSubmit}>
@@ -77,13 +81,13 @@ export default function ReportTennantForm() {
                 className="block text-gray-700 text-sm font-bold mb-2"
                 htmlFor="tenantName"
               >
-                Tenant Name
+                {t("contribute.tenantName")}
               </label>
               <input
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 id="name"
                 type="text"
-                placeholder="Tenant Name"
+                placeholder={t("contribute.tenantName")}
                 value={tenantName}
                 onChange={(e) => setTenantName(e.target.value)}
               />
@@ -93,13 +97,13 @@ export default function ReportTennantForm() {
                 className="block text-gray-700 text-sm font-bold mb-2"
                 htmlFor="tenantSurname"
               >
-                Tenant Surname
+                {t("contribute.tenantSurname")}
               </label>
               <input
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 id="surname"
                 type="text"
-                placeholder="Tenant Surname"
+                placeholder={t("contribute.tenantSurname")}
                 value={tenantSurname}
                 onChange={(e) => setTenantSurname(e.target.value)}
               />
@@ -107,24 +111,26 @@ export default function ReportTennantForm() {
             <LocationAutocomplete
               value={city}
               onChange={setCity}
-              placeholder="Enter city"
-              label="City"
+              placeholder={`Enter ${t("contribute.city").toLowerCase()}`}
+              label={t("contribute.city")}
             />
             <LocationAutocomplete
               value={country}
               onChange={setCountry}
-              placeholder="Enter country"
-              label="Country"
+              placeholder={`Enter ${t("contribute.country").toLowerCase()}`}
+              label={t("contribute.country")}
             />
             <div className="mb-4 col-span-1">
               <label className="block text-gray-700 text-sm font-bold mb-2">
-                Date of Birth
+                {t("contribute.dateOfBirth")}
               </label>
               <DatePicker
                 selected={dateOfBirth}
                 onChange={(d) => setDateOfBirth(d)}
                 dateFormat="dd/MM/yyyy"
-                placeholderText="Select date of birth"
+                placeholderText={`Select ${t(
+                  "contribute.dateOfBirth"
+                ).toLowerCase()}`}
                 className="shadow appearance-none border rounded w-full h-10 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 maxDate={new Date()}
                 showMonthDropdown
@@ -138,7 +144,7 @@ export default function ReportTennantForm() {
                 className="block text-gray-700 text-sm font-bold mb-2"
                 htmlFor="violationType"
               >
-                Violation Type
+                {t("contribute.violationType")}
               </label>
               <select
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -149,11 +155,13 @@ export default function ReportTennantForm() {
                 }
               >
                 <option value="" disabled>
-                  Select Violation Type
+                  {t("contribute.selectViolationType")}
                 </option>
-                <option value={ViolationType.RentNotPaid}>Rent Not Paid</option>
+                <option value={ViolationType.RentNotPaid}>
+                  {t("contribute.rentNotPaid")}
+                </option>
                 <option value={ViolationType.PropetryWrecked}>
-                  Propetry Wrecked
+                  {t("contribute.propertyWrecked")}
                 </option>
               </select>
             </div>
@@ -162,12 +170,12 @@ export default function ReportTennantForm() {
                 className="block text-gray-700 text-sm font-bold mb-2"
                 htmlFor="description"
               >
-                Description of Violation
+                {t("contribute.description")}
               </label>
               <textarea
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 id="description"
-                placeholder="Description"
+                placeholder={t("contribute.description")}
                 rows={3}
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
@@ -179,7 +187,9 @@ export default function ReportTennantForm() {
               type="submit"
               isLoading={isLoading}
               disabled={isLoading}
-              text={isLoading ? "Submitting..." : "Submit"}
+              text={
+                isLoading ? t("contribute.submitting") : t("contribute.submit")
+              }
             />
           </div>
         </form>

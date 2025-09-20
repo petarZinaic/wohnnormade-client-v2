@@ -62,9 +62,7 @@ function Navbar() {
             {t("navigation.search")}
           </li>
         </Link>
-        <li className="px-4">
-          <LanguageSelector />
-        </li>
+
         {isAuthenticated ? (
           <>
             <Link href="/profile">
@@ -91,6 +89,9 @@ function Navbar() {
             </Link>
           </>
         )}
+        <li className="px-4">
+          <LanguageSelector />
+        </li>
       </ul>
       <div>
         <div

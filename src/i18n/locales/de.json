@@ -30,5 +30,29 @@
     "communityTitle": "Werden Sie Teil einer Gemeinschaft",
     "communitySubtitle": "die andere Vermieter vor Mietern warnt, die ihr Eigentum beschädigt oder die Miete nicht bezahlt haben. Registrieren Sie sich und hinterlassen Sie Informationen über Ihre schlechte Erfahrung, um andere davor zu bewahren.",
     "reportTenant": "Mieter melden"
+  },
+  "contribute": {
+    "title": "Mieter melden",
+    "tenantName": "Mieter Vorname",
+    "tenantSurname": "Mieter Nachname",
+    "city": "Stadt",
+    "country": "Land",
+    "dateOfBirth": "Geburtsdatum",
+    "violationType": "Verstoßart",
+    "description": "Beschreibung des Verstoßes",
+    "selectViolationType": "Verstoßart auswählen",
+    "rentNotPaid": "Miete nicht bezahlt",
+    "propertyWrecked": "Eigentum beschädigt",
+    "submit": "Einreichen",
+    "submitting": "Wird eingereicht...",
+    "submitError": "Fehler beim Einreichen des Berichts",
+    "authRequired": "Authentifizierung erforderlich",
+    "authMessage": "Sie müssen angemeldet sein, um Mieterberichte beizutragen. Weiterleitung zur Anmeldung...",
+    "loading": "Lädt..."
+  },
+  "contributeSuccess": {
+    "title": "Mieterbericht erfolgreich eingereicht.",
+    "message": "Vielen Dank, dass Sie der Gemeinschaft helfen.",
+    "goToSearch": "Zur Suche gehen"
   }
 }

@@ -1,9 +1,11 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import { useTranslation } from "react-i18next";
 import { Button } from "@/components/common";
 
 export default function TenantSuccessPage() {
+  const { t } = useTranslation();
   const router = useRouter();
 
   return (
@@ -26,13 +28,14 @@ export default function TenantSuccessPage() {
           </svg>
         </div>
         <h1 className="text-3xl md:text-4xl font-extrabold text-gray-900 tracking-tight mb-2">
-          Tenant report submitted successfully.
+          {t("contributeSuccess.title")}
         </h1>
-        <p className="text-gray-600 mb-8">
-          Thank you for helping the community.
-        </p>
+        <p className="text-gray-600 mb-8">{t("contributeSuccess.message")}</p>
         <div className="flex justify-center">
-          <Button text="Go to Search" onClick={() => router.push("/search")} />
+          <Button
+            text={t("contributeSuccess.goToSearch")}
+            onClick={() => router.push("/search")}
+          />
         </div>
       </div>
     </div>
