@@ -15,6 +15,7 @@ import {
   validateCity,
   validateCountry,
 } from "@/utils/validation";
+import { formatDateDMY } from "@/utils/date";
 
 export default function UserProfile() {
   const { user, logout } = useAuth();
@@ -239,7 +240,7 @@ export default function UserProfile() {
   }
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100 pt-20">
+    <div className="flex items-center justify-center min-h-screen bg-gray-100 pt-32">
       <div className="w-full max-w-4xl mx-auto bg-white rounded-lg shadow-md">
         <div className="bg-orange text-white rounded-t-lg">
           <h1 className="text-xl text-center font-bold mb-6 py-4">
@@ -304,11 +305,9 @@ export default function UserProfile() {
                     Member Since
                   </label>
                   <p className="text-gray-900 bg-sky-50 border border-sky-200 p-2 rounded">
-                    {profile?.createdAt || user.createdAt
-                      ? new Date(
-                          profile?.createdAt || (user.createdAt as any)
-                        ).toLocaleDateString()
-                      : "N/A"}
+                    {formatDateDMY(
+                      profile?.createdAt || (user.createdAt as any)
+                    ) || "N/A"}
                   </p>
                 </div>
                 <div>
@@ -476,11 +475,7 @@ export default function UserProfile() {
                             {t.name} {t.surname}
                           </td>
                           <td className="px-4 py-3 text-sm text-gray-700">
-                            {t.dateOfBirth
-                              ? new Date(
-                                  t.dateOfBirth as any
-                                ).toLocaleDateString()
-                              : "-"}
+                            {formatDateDMY(t.dateOfBirth as any) || "-"}
                           </td>
                           <td className="px-4 py-3 text-sm text-gray-700">
                             {t.city}
@@ -492,11 +487,7 @@ export default function UserProfile() {
                             {t.violationType}
                           </td>
                           <td className="px-4 py-3 text-sm text-gray-500">
-                            {(t as any).createdAt
-                              ? new Date(
-                                  (t as any).createdAt
-                                ).toLocaleDateString()
-                              : "-"}
+                            {formatDateDMY((t as any).createdAt) || "-"}
                           </td>
                         </tr>
                       ))

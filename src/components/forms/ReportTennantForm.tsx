@@ -123,7 +123,7 @@ export default function ReportTennantForm() {
               <DatePicker
                 selected={dateOfBirth}
                 onChange={(d) => setDateOfBirth(d)}
-                dateFormat="yyyy-MM-dd"
+                dateFormat="dd/MM/yyyy"
                 placeholderText="Select date of birth"
                 className="shadow appearance-none border rounded w-full h-10 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 maxDate={new Date()}
