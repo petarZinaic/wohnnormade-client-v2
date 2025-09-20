@@ -24,7 +24,7 @@ export default function SearchTennant() {
       setIsLoading(true);
       setError("");
       try {
-        const res = await TenantService.searchTenantsByName(searchTerm);
+        const res = await TenantService.searchTenants(searchTerm);
         const list = (res as any).result || (res as any).data || res;
         setSuggestions(Array.isArray(list) ? list : []);
       } catch (err) {
