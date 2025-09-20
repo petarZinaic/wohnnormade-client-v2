@@ -107,13 +107,13 @@ export default function ReportTennantForm() {
             <LocationAutocomplete
               value={city}
               onChange={setCity}
-              placeholder="Enter your city"
+              placeholder="Enter city"
               label="City"
             />
             <LocationAutocomplete
               value={country}
               onChange={setCountry}
-              placeholder="Enter your country"
+              placeholder="Enter country"
               label="Country"
             />
             <div className="mb-4 col-span-1">
