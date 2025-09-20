@@ -116,7 +116,7 @@ export default function ReportTennantForm() {
               placeholder="Enter your country"
               label="Country"
             />
-            <div className="mb-4">
+            <div className="mb-4 col-span-1">
               <label className="block text-gray-700 text-sm font-bold mb-2">
                 Date of Birth
               </label>
@@ -125,7 +125,7 @@ export default function ReportTennantForm() {
                 onChange={(d) => setDateOfBirth(d)}
                 dateFormat="yyyy-MM-dd"
                 placeholderText="Select date of birth"
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                className="shadow appearance-none border rounded w-full h-10 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 maxDate={new Date()}
                 showMonthDropdown
                 showYearDropdown
@@ -133,7 +133,7 @@ export default function ReportTennantForm() {
                 isClearable
               />
             </div>
-            <div className="mb-4 col-span-1 md:col-span-2">
+            <div className="mb-4 col-span-1">
               <label
                 className="block text-gray-700 text-sm font-bold mb-2"
                 htmlFor="violationType"
