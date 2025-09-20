@@ -10,6 +10,11 @@ interface TenantContextType {
   error: string | null;
   createTenant: (data: CreateTenantData) => Promise<Tenant>;
   getTenantById: (id: number) => Promise<Tenant>;
+  updateTenant: (
+    id: number,
+    data: Partial<CreateTenantData>
+  ) => Promise<Tenant>;
+  deleteTenant: (id: number) => Promise<void>;
 }
 
 const TenantContext = createContext<TenantContextType | undefined>(undefined);
@@ -67,12 +72,57 @@ export function TenantProvider({ children }: TenantProviderProps) {
     }
   };
 
+  const updateTenant = async (
+    id: number,
+    data: Partial<CreateTenantData>
+  ): Promise<Tenant> => {
+    setIsLoading(true);
+    setError(null);
+    try {
+      const response = await TenantService.updateTenant(id, data);
+      const tenant: Tenant =
+        (response as any).result ||
+        (response as any).tenant ||
+        (response as any).data ||
+        response;
+      setCurrentTenant(tenant);
+      return tenant;
+    } catch (err) {
+      const message =
+        err instanceof Error ? err.message : "Failed to update tenant";
+      setError(message);
+      throw new Error(message);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const deleteTenant = async (id: number): Promise<void> => {
+    setIsLoading(true);
+    setError(null);
+    try {
+      await TenantService.deleteTenant(id);
+      if (currentTenant?.id === id) {
+        setCurrentTenant(null);
+      }
+    } catch (err) {
+      const message =
+        err instanceof Error ? err.message : "Failed to delete tenant";
+      setError(message);
+      throw new Error(message);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   const value: TenantContextType = {
     currentTenant,
     isLoading,
     error,
     createTenant,
     getTenantById,
+    updateTenant,
+    deleteTenant,
   };
 
   return (

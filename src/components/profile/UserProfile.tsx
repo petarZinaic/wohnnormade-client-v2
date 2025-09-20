@@ -458,7 +458,7 @@ export default function UserProfile() {
                       </th>
                     </tr>
                   </thead>
-                  <tbody className="bg-white divide-y divide-gray-200">
+                  <tbody className="bg-white">
                     {reportedTenants.length === 0 ? (
                       <tr>
                         <td
@@ -470,23 +470,27 @@ export default function UserProfile() {
                       </tr>
                     ) : (
                       reportedTenants.map((t) => (
-                        <tr key={t.id} className="hover:bg-gray-50">
-                          <td className="px-4 py-3 text-sm text-gray-900">
+                        <tr
+                          key={t.id}
+                          className="group hover:bg-orange hover:outline hover:outline-2 hover:outline-orange border-b border-gray-200 hover:border-orange cursor-pointer transition-colors"
+                          onClick={() => router.push(`/tenant/${t.id}`)}
+                        >
+                          <td className="px-4 py-3 text-sm text-gray-900 group-hover:text-white">
                             {t.name} {t.surname}
                           </td>
-                          <td className="px-4 py-3 text-sm text-gray-700">
+                          <td className="px-4 py-3 text-sm text-gray-700 group-hover:text-white">
                             {formatDateDMY(t.dateOfBirth as any) || "-"}
                           </td>
-                          <td className="px-4 py-3 text-sm text-gray-700">
+                          <td className="px-4 py-3 text-sm text-gray-700 group-hover:text-white">
                             {t.city}
                           </td>
-                          <td className="px-4 py-3 text-sm text-gray-700">
+                          <td className="px-4 py-3 text-sm text-gray-700 group-hover:text-white">
                             {t.country}
                           </td>
-                          <td className="px-4 py-3 text-sm text-gray-700">
+                          <td className="px-4 py-3 text-sm text-gray-700 group-hover:text-white">
                             {t.violationType}
                           </td>
-                          <td className="px-4 py-3 text-sm text-gray-500">
+                          <td className="px-4 py-3 text-sm text-gray-500 group-hover:text-white">
                             {formatDateDMY((t as any).createdAt) || "-"}
                           </td>
                         </tr>
