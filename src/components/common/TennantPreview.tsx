@@ -26,6 +26,9 @@ export default function TennantPreview() {
   const surname = tenant.surname || tenant.tenantSurname;
   const city = tenant.city;
   const country = tenant.country;
+  const dateOfBirth = tenant.dateOfBirth
+    ? new Date(tenant.dateOfBirth).toLocaleDateString()
+    : undefined;
   const violationType = tenant.violationType;
   const description = tenant.description;
   const createdAt = tenant.createdAt
@@ -82,6 +85,12 @@ export default function TennantPreview() {
               <div className="mt-1 text-gray-900">
                 {name} {surname}
               </div>
+            </div>
+            <div>
+              <div className="text-xs font-semibold uppercase tracking-wider text-gray-500">
+                Date of Birth
+              </div>
+              <div className="mt-1 text-gray-900">{dateOfBirth || "-"}</div>
             </div>
             <div>
               <div className="text-xs font-semibold uppercase tracking-wider text-gray-500">

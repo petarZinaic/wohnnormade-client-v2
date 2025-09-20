@@ -27,6 +27,7 @@ export interface Tenant {
 export interface CreateTenantData {
   name: string;
   surname: string;
+  dateOfBirth?: string; // ISO string
   violationType: ViolationType;
   description: string;
   city: string;

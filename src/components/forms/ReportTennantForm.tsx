@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Button, LocationAutocomplete } from "@/components/common";
+import DatePicker from "react-datepicker";
 import { useTenant } from "@/context/TenantContext";
 import type { CreateTenantData } from "@/types";
 import { ViolationType } from "@/types";
@@ -14,6 +15,7 @@ export default function ReportTennantForm() {
   const [tenantSurname, setTenantSurname] = useState("");
   const [city, setCity] = useState("");
   const [country, setCountry] = useState("");
+  const [dateOfBirth, setDateOfBirth] = useState<Date | null>(null);
   const [violationType, setViolationType] = useState<ViolationType | "">("");
   const [description, setDescription] = useState("");
   const [error, setError] = useState("");
@@ -22,6 +24,14 @@ export default function ReportTennantForm() {
     e.preventDefault();
     setError("");
 
+    const toUtcMidnightIso = (d: Date | null): string | undefined => {
+      if (!d) return undefined;
+      const utc = new Date(
+        Date.UTC(d.getFullYear(), d.getMonth(), d.getDate(), 0, 0, 0, 0)
+      );
+      return utc.toISOString();
+    };
+
     const data: CreateTenantData = {
       name: tenantName,
       surname: tenantSurname,
@@ -29,6 +39,7 @@ export default function ReportTennantForm() {
       country,
       violationType: violationType as ViolationType,
       description,
+      dateOfBirth: toUtcMidnightIso(dateOfBirth),
     };
 
     try {
@@ -39,6 +50,7 @@ export default function ReportTennantForm() {
       setCity("");
       setCountry("");
       setViolationType("");
+      setDateOfBirth(null);
       setDescription("");
     } catch (err) {
       setError(err instanceof Error ? err.message : "Failed to submit report");
@@ -104,6 +116,23 @@ export default function ReportTennantForm() {
               placeholder="Enter your country"
               label="Country"
             />
+            <div className="mb-4">
+              <label className="block text-gray-700 text-sm font-bold mb-2">
+                Date of Birth
+              </label>
+              <DatePicker
+                selected={dateOfBirth}
+                onChange={(d) => setDateOfBirth(d)}
+                dateFormat="yyyy-MM-dd"
+                placeholderText="Select date of birth"
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                maxDate={new Date()}
+                showMonthDropdown
+                showYearDropdown
+                dropdownMode="select"
+                isClearable
+              />
+            </div>
             <div className="mb-4 col-span-1 md:col-span-2">
               <label
                 className="block text-gray-700 text-sm font-bold mb-2"
