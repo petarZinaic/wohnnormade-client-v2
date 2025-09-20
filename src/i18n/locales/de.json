@@ -54,5 +54,25 @@
     "title": "Mieterbericht erfolgreich eingereicht.",
     "message": "Vielen Dank, dass Sie der Gemeinschaft helfen.",
     "goToSearch": "Zur Suche gehen"
+  },
+  "search": {
+    "title": "Suche Gemeldete",
+    "titleSpan": "Mieter",
+    "placeholder": "Mieter nach Namen suchen...",
+    "loading": "Lädt...",
+    "searchError": "Fehler beim Suchen von Mietern",
+    "authMessage": "Sie müssen angemeldet sein, um Mieterberichte zu suchen. Weiterleitung zur Anmeldung..."
+  },
+  "tenantPreview": {
+    "title": "Mieterdetails",
+    "reportedAt": "Gemeldet am",
+    "fullName": "Vollständiger Name",
+    "dateOfBirth": "Geburtsdatum",
+    "city": "Stadt",
+    "country": "Land",
+    "description": "Beschreibung des Verstoßes",
+    "unknownReporter": "Unbekannter Melder",
+    "landlord": "Vermieter",
+    "loading": "Lädt..."
   }
 }

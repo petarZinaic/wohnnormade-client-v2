@@ -54,5 +54,25 @@
     "title": "Tenant report submitted successfully.",
     "message": "Thank you for helping the community.",
     "goToSearch": "Go to Search"
+  },
+  "search": {
+    "title": "Search Reported",
+    "titleSpan": "Tenants",
+    "placeholder": "Search tenant by name...",
+    "loading": "Loading...",
+    "searchError": "Failed to search tenants",
+    "authMessage": "You need to be logged in to search tenant reports. Redirecting to login..."
+  },
+  "tenantPreview": {
+    "title": "Tenant Details",
+    "reportedAt": "Reported at",
+    "fullName": "Full name",
+    "dateOfBirth": "Date of Birth",
+    "city": "City",
+    "country": "Country",
+    "description": "Description of Violation",
+    "unknownReporter": "Unknown reporter",
+    "landlord": "Landlord",
+    "loading": "Loading..."
   }
 }

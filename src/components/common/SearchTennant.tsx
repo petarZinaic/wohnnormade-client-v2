@@ -2,10 +2,12 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { useTranslation } from "react-i18next";
 import { TenantService } from "@/services";
 import type { Tenant } from "@/types";
 
 export default function SearchTennant() {
+  const { t } = useTranslation();
   const [searchTerm, setSearchTerm] = useState("");
   const [suggestions, setSuggestions] = useState<Tenant[]>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -28,9 +30,7 @@ export default function SearchTennant() {
         const list = (res as any).result || (res as any).data || res;
         setSuggestions(Array.isArray(list) ? list : []);
       } catch (err) {
-        setError(
-          err instanceof Error ? err.message : "Failed to search tenants"
-        );
+        setError(err instanceof Error ? err.message : t("search.searchError"));
         setSuggestions([]);
       } finally {
         setIsLoading(false);
@@ -58,14 +58,14 @@ export default function SearchTennant() {
       <div className="relative">
         <input
           type="text"
-          placeholder="Search tenant by name..."
+          placeholder={t("search.placeholder")}
           className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-orange focus:border-orange"
           value={searchTerm}
           onChange={handleSearch}
         />
         {isLoading && (
           <div className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm">
-            Loading...
+            {t("search.loading")}
           </div>
         )}
       </div>

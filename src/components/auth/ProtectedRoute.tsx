@@ -21,7 +21,9 @@ export default function ProtectedRoute({
   const router = useRouter();
   const [showMessage, setShowMessage] = useState(false);
 
-  const defaultMessage = message || t("contribute.authMessage");
+  const defaultMessage =
+    message ||
+    "You need to be logged in to access this page. Redirecting to login...";
 
   useEffect(() => {
     if (!isLoading && !isAuthenticated) {

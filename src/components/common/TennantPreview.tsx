@@ -1,9 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import UserAvatarIcon from "@/components/icons/UserAvatarIcon";
 
 export default function TennantPreview() {
+  const { t } = useTranslation();
   const [tenant, setTenant] = useState<any>(null);
 
   useEffect(() => {
@@ -20,7 +22,7 @@ export default function TennantPreview() {
     }
   }, []);
 
-  if (!tenant) return <p>Loading...</p>;
+  if (!tenant) return <p>{t("tenantPreview.loading")}</p>;
 
   const name = tenant.name || tenant.tenantName;
   const surname = tenant.surname || tenant.tenantSurname;
@@ -60,10 +62,12 @@ export default function TennantPreview() {
             </div>
             <div className="flex-1">
               <h1 className="text-2xl md:text-3xl font-extrabold text-gray-900 tracking-tight">
-                Tenant Details
+                {t("tenantPreview.title")}
               </h1>
               {createdAt && (
-                <p className="text-sm text-gray-500">Reported at {createdAt}</p>
+                <p className="text-sm text-gray-500">
+                  {t("tenantPreview.reportedAt")} {createdAt}
+                </p>
               )}
             </div>
             {violationType && (
@@ -80,7 +84,7 @@ export default function TennantPreview() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
               <div className="text-xs font-semibold uppercase tracking-wider text-gray-500">
-                Full name
+                {t("tenantPreview.fullName")}
               </div>
               <div className="mt-1 text-gray-900">
                 {name} {surname}
@@ -88,25 +92,25 @@ export default function TennantPreview() {
             </div>
             <div>
               <div className="text-xs font-semibold uppercase tracking-wider text-gray-500">
-                Date of Birth
+                {t("tenantPreview.dateOfBirth")}
               </div>
               <div className="mt-1 text-gray-900">{dateOfBirth || "-"}</div>
             </div>
             <div>
               <div className="text-xs font-semibold uppercase tracking-wider text-gray-500">
-                City
+                {t("tenantPreview.city")}
               </div>
               <div className="mt-1 text-gray-900">{city}</div>
             </div>
             <div>
               <div className="text-xs font-semibold uppercase tracking-wider text-gray-500">
-                Country
+                {t("tenantPreview.country")}
               </div>
               <div className="mt-1 text-gray-900">{country}</div>
             </div>
             <div className="md:col-span-2">
               <div className="text-xs font-semibold uppercase tracking-wider text-gray-500">
-                Description of Violation
+                {t("tenantPreview.description")}
               </div>
               <div className="mt-1 text-gray-900 leading-relaxed">
                 {description}
@@ -121,10 +125,10 @@ export default function TennantPreview() {
               </div>
               <div>
                 <div className="text-sm font-medium text-gray-900 flex items-center gap-2">
-                  {reporterName || "Unknown reporter"}
+                  {reporterName || t("tenantPreview.unknownReporter")}
                   {reporter && (
                     <span className="inline-flex items-center rounded-full border border-gray-300 px-2 py-0.5 text-[11px] font-medium text-gray-700">
-                      Landlord
+                      {t("tenantPreview.landlord")}
                     </span>
                   )}
                 </div>
