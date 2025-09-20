@@ -14,6 +14,7 @@ export interface Tenant {
   id: number;
   name: string;
   surname: string;
+  dateOfBirth?: string;
   violationType: ViolationType | string;
   description: string;
   city: string;

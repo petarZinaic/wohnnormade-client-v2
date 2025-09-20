@@ -6,6 +6,8 @@ import { useAuth } from "@/context/AuthContext";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { Button, LocationAutocomplete } from "@/components/common";
 import { UserService, UpdateUserData } from "@/services";
+import type { Tenant } from "@/types";
+import type { UserProfile as UserProfileType } from "@/services";
 import {
   ValidationErrors,
   validateName,
@@ -31,6 +33,15 @@ export default function UserProfile() {
     {}
   );
 
+  // Reported tenants
+  const [reportedTenants, setReportedTenants] = useState<Tenant[]>([]);
+  const [isTenantsLoading, setIsTenantsLoading] = useState(false);
+  const [tenantsError, setTenantsError] = useState("");
+
+  // API user profile (authoritative)
+  const [profile, setProfile] = useState<UserProfileType | null>(null);
+  const [isProfileLoading, setIsProfileLoading] = useState(false);
+
   // Password change states
   const [showChangePassword, setShowChangePassword] = useState(false);
   const [currentPassword, setCurrentPassword] = useState("");
@@ -45,13 +56,51 @@ export default function UserProfile() {
 
   // Initialize form data when user data is available
   useEffect(() => {
-    if (user) {
-      setName(user.name || "");
-      setSurname(user.surname || "");
-      setCity(user.city || "");
-      setCountry(user.country || "");
-    }
-  }, [user]);
+    const loadProfile = async () => {
+      if (!user?.id) return;
+      setIsProfileLoading(true);
+      try {
+        const p = await UserService.getUserProfile(user.id);
+        setProfile(p);
+        setReportedTenants(p.tenants || []);
+        setName(p.name || "");
+        setSurname(p.surname || "");
+        setCity(p.city || "");
+        setCountry(p.country || "");
+      } catch (e) {
+        // fallback to cookie user
+        if (user) {
+          setName(user.name || "");
+          setSurname(user.surname || "");
+          setCity(user.city || "");
+          setCountry(user.country || "");
+        }
+      } finally {
+        setIsProfileLoading(false);
+      }
+    };
+    loadProfile();
+  }, [user?.id]);
+
+  // If profile is separately requested for tenants
+  useEffect(() => {
+    if (reportedTenants.length > 0 || !user?.id) return;
+    const fetchTenants = async () => {
+      setIsTenantsLoading(true);
+      setTenantsError("");
+      try {
+        const p = await UserService.getUserProfile(user.id!);
+        setReportedTenants(p.tenants || []);
+      } catch (err) {
+        setTenantsError(
+          err instanceof Error ? err.message : "Failed to load reported tenants"
+        );
+      } finally {
+        setIsTenantsLoading(false);
+      }
+    };
+    fetchTenants();
+  }, [user?.id]);
 
   const handleProfileUpdate = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -199,6 +248,11 @@ export default function UserProfile() {
         </div>
 
         <div className="p-6">
+          {isProfileLoading && (
+            <div className="mb-4 p-3 bg-gray-50 border border-gray-200 text-gray-600 rounded">
+              Loading profile...
+            </div>
+          )}
           {message && (
             <div className="mb-4 p-3 bg-green-100 border border-green-400 text-green-700 rounded">
               {message}
@@ -242,7 +296,7 @@ export default function UserProfile() {
                     Email Address
                   </label>
                   <p className="text-gray-900 bg-orange-50 border border-orange-200 p-2 rounded">
-                    {user.email}
+                    {profile?.email || user.email}
                   </p>
                 </div>
                 <div>
@@ -250,8 +304,10 @@ export default function UserProfile() {
                     Member Since
                   </label>
                   <p className="text-gray-900 bg-sky-50 border border-sky-200 p-2 rounded">
-                    {user.createdAt
-                      ? new Date(user.createdAt).toLocaleDateString()
+                    {profile?.createdAt || user.createdAt
+                      ? new Date(
+                          profile?.createdAt || (user.createdAt as any)
+                        ).toLocaleDateString()
                       : "N/A"}
                   </p>
                 </div>
@@ -260,7 +316,7 @@ export default function UserProfile() {
                     Name
                   </label>
                   <p className="text-gray-900 bg-emerald-50 border border-emerald-200 p-2 rounded">
-                    {user.name}
+                    {profile?.name || user.name}
                   </p>
                 </div>
                 <div>
@@ -268,7 +324,7 @@ export default function UserProfile() {
                     Surname
                   </label>
                   <p className="text-gray-900 bg-violet-50 border border-violet-200 p-2 rounded">
-                    {user.surname}
+                    {profile?.surname || user.surname}
                   </p>
                 </div>
                 <div>
@@ -276,7 +332,7 @@ export default function UserProfile() {
                     City
                   </label>
                   <p className="text-gray-900 bg-amber-50 border border-amber-200 p-2 rounded">
-                    {user.city}
+                    {profile?.city || user.city}
                   </p>
                 </div>
                 <div>
@@ -284,7 +340,7 @@ export default function UserProfile() {
                     Country
                   </label>
                   <p className="text-gray-900 bg-rose-50 border border-rose-200 p-2 rounded">
-                    {user.country}
+                    {profile?.country || user.country}
                   </p>
                 </div>
               </div>
@@ -364,6 +420,90 @@ export default function UserProfile() {
                   />
                 </div>
               </form>
+            )}
+          </div>
+
+          {/* Reported Tenants */}
+          <div className="mb-8">
+            <h2 className="text-lg font-semibold mb-4">Reported Tenants</h2>
+            {isTenantsLoading && (
+              <div className="text-gray-500 text-sm">Loading tenants...</div>
+            )}
+            {tenantsError && (
+              <div className="mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded">
+                {tenantsError}
+              </div>
+            )}
+            {!isTenantsLoading && !tenantsError && (
+              <div className="overflow-hidden rounded-lg ring-1 ring-gray-200">
+                <table className="min-w-full divide-y divide-gray-200">
+                  <thead className="bg-gray-50">
+                    <tr>
+                      <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Name
+                      </th>
+                      <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Date of Birth
+                      </th>
+                      <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        City
+                      </th>
+                      <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Country
+                      </th>
+                      <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Violation
+                      </th>
+                      <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Reported At
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody className="bg-white divide-y divide-gray-200">
+                    {reportedTenants.length === 0 ? (
+                      <tr>
+                        <td
+                          className="px-4 py-3 text-gray-500 text-sm"
+                          colSpan={6}
+                        >
+                          No tenants reported yet.
+                        </td>
+                      </tr>
+                    ) : (
+                      reportedTenants.map((t) => (
+                        <tr key={t.id} className="hover:bg-gray-50">
+                          <td className="px-4 py-3 text-sm text-gray-900">
+                            {t.name} {t.surname}
+                          </td>
+                          <td className="px-4 py-3 text-sm text-gray-700">
+                            {t.dateOfBirth
+                              ? new Date(
+                                  t.dateOfBirth as any
+                                ).toLocaleDateString()
+                              : "-"}
+                          </td>
+                          <td className="px-4 py-3 text-sm text-gray-700">
+                            {t.city}
+                          </td>
+                          <td className="px-4 py-3 text-sm text-gray-700">
+                            {t.country}
+                          </td>
+                          <td className="px-4 py-3 text-sm text-gray-700">
+                            {t.violationType}
+                          </td>
+                          <td className="px-4 py-3 text-sm text-gray-500">
+                            {(t as any).createdAt
+                              ? new Date(
+                                  (t as any).createdAt
+                                ).toLocaleDateString()
+                              : "-"}
+                          </td>
+                        </tr>
+                      ))
+                    )}
+                  </tbody>
+                </table>
+              </div>
             )}
           </div>
 

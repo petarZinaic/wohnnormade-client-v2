@@ -1,5 +1,6 @@
 import { getApiUrl } from "@/utils/api";
 import { AuthService } from "./auth";
+import type { Tenant } from "@/types/tenant";
 
 export interface UpdateUserData {
   name?: string;
@@ -16,6 +17,7 @@ export interface UserProfile {
   city: string;
   country: string;
   createdAt: string;
+  tenants?: Tenant[];
 }
 
 class UserService {
@@ -45,7 +47,7 @@ class UserService {
       }
 
       const result = await response.json();
-      return result.user || result;
+      return result.result || result.user || result;
     } catch (error) {
       console.error("Error updating user profile:", error);
       throw new Error(
@@ -75,11 +77,39 @@ class UserService {
       }
 
       const result = await response.json();
-      return result.user || result;
+      return result.result || result.user || result;
     } catch (error) {
       console.error("Error fetching user profile:", error);
       throw new Error(
         error instanceof Error ? error.message : "Failed to fetch user profile"
+      );
+    }
+  }
+
+  /**
+   * Get all users
+   */
+  static async getAllUsers(): Promise<UserProfile[]> {
+    try {
+      const response = await fetch(getApiUrl("users"), {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          ...AuthService.getAuthHeaders(),
+        },
+      });
+
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.error?.message || "Failed to fetch users");
+      }
+
+      const result = await response.json();
+      return result.result || result.users || result;
+    } catch (error) {
+      console.error("Error fetching users:", error);
+      throw new Error(
+        error instanceof Error ? error.message : "Failed to fetch users"
       );
     }
   }

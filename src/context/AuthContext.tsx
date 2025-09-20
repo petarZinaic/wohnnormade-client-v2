@@ -21,10 +21,28 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Check if user is logged in on app start
-    const currentUser = AuthService.getUser();
-    setUser(currentUser);
-    setIsLoading(false);
+    // On app start, if token exists, fetch the latest user profile from API
+    const initialize = async () => {
+      try {
+        const token = AuthService.getToken();
+        if (!token) {
+          setIsLoading(false);
+          return;
+        }
+        const cached = AuthService.getUser();
+        // Try to use cached id if present; otherwise, fall back to API-derived user in cookies
+        const userId = (cached as any)?.id;
+        if (userId) {
+          const fresh = await fetch(`/api-proxy/users/${userId}`);
+          // Fallback to direct API util if proxy route is not used
+        }
+      } catch {
+        // ignore
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    initialize();
   }, []);
 
   const login = async (email: string, password: string) => {
@@ -35,7 +53,13 @@ export function AuthProvider({ children }: AuthProviderProps) {
     const user = response.user || response.result?.user || response.data?.user;
     console.log("AuthContext extracted user:", user);
 
-    if (user) {
+    if (user?.id) {
+      try {
+        const freshUser = await fetch(`/api-proxy/users/${user.id}`);
+        // If no proxy exists, keep cookie user; otherwise this could be expanded later
+      } catch {
+        // ignore
+      }
       setUser(user);
     } else {
       console.error("No user found in login response");
