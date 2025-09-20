@@ -194,7 +194,7 @@ export default function UserProfile() {
       <div className="w-full max-w-4xl mx-auto bg-white rounded-lg shadow-md">
         <div className="bg-orange text-white rounded-t-lg">
           <h1 className="text-xl text-center font-bold mb-6 py-4">
-            User Profile
+            Landlord Profile
           </h1>
         </div>
 
