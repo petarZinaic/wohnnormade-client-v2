@@ -2,12 +2,14 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
+import { useTranslation } from "react-i18next";
 import { Button, LocationAutocomplete } from "@/components/common";
 import DatePicker from "react-datepicker";
 import { useTenant } from "@/context/TenantContext";
 import type { CreateTenantData, Tenant } from "@/types";
 import { ViolationType } from "@/types";
 import { formatDateDMY } from "@/utils/date";
+import { translateViolationType } from "@/utils/violationTypeTranslation";
 
 interface Props {
   tenantId: number;
@@ -15,6 +17,7 @@ interface Props {
 
 export default function TenantEditForm({ tenantId }: Props) {
   const router = useRouter();
+  const { t } = useTranslation();
   const { getTenantById, updateTenant, deleteTenant, isLoading } = useTenant();
 
   const [tenant, setTenant] = useState<Tenant | null>(null);
@@ -45,7 +48,9 @@ export default function TenantEditForm({ tenantId }: Props) {
         setHasChanges(false);
         setShowSaveButton(false);
       } catch (err) {
-        setError(err instanceof Error ? err.message : "Failed to load tenant");
+        setError(
+          err instanceof Error ? err.message : t("editTenant.loadError")
+        );
       }
     };
     load();
@@ -113,24 +118,28 @@ export default function TenantEditForm({ tenantId }: Props) {
         dateOfBirth: toUtcMidnightIso(dateOfBirth),
       };
       await updateTenant(tenantId, payload);
-      setMessage("Tenant updated successfully");
+      setMessage(t("editTenant.updateSuccess"));
       // Redirect to profile after successful update
       setTimeout(() => {
         router.push("/profile");
       }, 1500);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to update tenant");
+      setError(
+        err instanceof Error ? err.message : t("editTenant.updateError")
+      );
     }
   };
 
   const handleDelete = async () => {
-    if (!confirm("Are you sure you want to delete this tenant?")) return;
+    if (!confirm(t("editTenant.deleteConfirm"))) return;
     setError("");
     try {
       await deleteTenant(tenantId);
       router.push("/profile");
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to delete tenant");
+      setError(
+        err instanceof Error ? err.message : t("editTenant.deleteError")
+      );
     }
   };
 
@@ -139,7 +148,7 @@ export default function TenantEditForm({ tenantId }: Props) {
       <div className="w-full max-w-3xl mx-auto bg-white rounded-lg shadow-md">
         <div className="bg-orange text-white rounded-t-lg">
           <h1 className="text-xl text-center font-bold mb-6 py-2">
-            Edit Tenant
+            {t("editTenant.title")}
           </h1>
         </div>
         <form className="p-6" onSubmit={handleUpdate}>
@@ -157,7 +166,7 @@ export default function TenantEditForm({ tenantId }: Props) {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="mb-4">
               <label className="block text-gray-700 text-sm font-bold mb-2">
-                Tenant Name
+                {t("editTenant.tenantName")}
               </label>
               <input
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -168,7 +177,7 @@ export default function TenantEditForm({ tenantId }: Props) {
             </div>
             <div className="mb-4">
               <label className="block text-gray-700 text-sm font-bold mb-2">
-                Tenant Surname
+                {t("editTenant.tenantSurname")}
               </label>
               <input
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -181,25 +190,25 @@ export default function TenantEditForm({ tenantId }: Props) {
             <LocationAutocomplete
               value={city}
               onChange={setCity}
-              placeholder="Enter city"
-              label="City"
+              placeholder={t("editTenant.enterCity")}
+              label={t("editTenant.city")}
             />
             <LocationAutocomplete
               value={country}
               onChange={setCountry}
-              placeholder="Enter country"
-              label="Country"
+              placeholder={t("editTenant.enterCountry")}
+              label={t("editTenant.country")}
             />
 
             <div className="mb-4 col-span-1">
               <label className="block text-gray-700 text-sm font-bold mb-2">
-                Date of Birth
+                {t("editTenant.dateOfBirth")}
               </label>
               <DatePicker
                 selected={dateOfBirth}
                 onChange={(d) => setDateOfBirth(d)}
                 dateFormat="dd/MM/yyyy"
-                placeholderText="Select date of birth"
+                placeholderText={t("editTenant.selectDateOfBirth")}
                 className="shadow appearance-none border rounded w-full h-10 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 maxDate={new Date()}
                 showMonthDropdown
@@ -211,7 +220,7 @@ export default function TenantEditForm({ tenantId }: Props) {
 
             <div className="mb-4 col-span-1">
               <label className="block text-gray-700 text-sm font-bold mb-2">
-                Violation Type
+                {t("editTenant.violationType")}
               </label>
               <select
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -221,18 +230,20 @@ export default function TenantEditForm({ tenantId }: Props) {
                 }
               >
                 <option value="" disabled>
-                  Select Violation Type
+                  {t("editTenant.selectViolationType")}
                 </option>
-                <option value={ViolationType.RentNotPaid}>Rent Not Paid</option>
+                <option value={ViolationType.RentNotPaid}>
+                  {translateViolationType(ViolationType.RentNotPaid, t)}
+                </option>
                 <option value={ViolationType.PropetryWrecked}>
-                  Propetry Wrecked
+                  {translateViolationType(ViolationType.PropetryWrecked, t)}
                 </option>
               </select>
             </div>
 
             <div className="mb-4 col-span-1 md:col-span-2">
               <label className="block text-gray-700 text-sm font-bold mb-2">
-                Description of Violation
+                {t("editTenant.description")}
               </label>
               <textarea
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -249,7 +260,7 @@ export default function TenantEditForm({ tenantId }: Props) {
               variant="secondary"
               className="hover:bg-orange hover:text-white transition-colors"
               onClick={() => router.push("/profile")}
-              text="Back to Profile"
+              text={t("editTenant.backToProfile")}
             />
             <div className="flex gap-2">
               {showSaveButton && (
@@ -257,14 +268,16 @@ export default function TenantEditForm({ tenantId }: Props) {
                   type="submit"
                   isLoading={isLoading}
                   disabled={isLoading}
-                  text={isLoading ? "Saving..." : "Save"}
+                  text={
+                    isLoading ? t("editTenant.saving") : t("editTenant.save")
+                  }
                 />
               )}
               <Button
                 buttonType="danger"
                 type="button"
                 onClick={handleDelete}
-                text="Delete"
+                text={t("editTenant.delete")}
               />
             </div>
           </div>

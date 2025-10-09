@@ -132,5 +132,28 @@
   "violationTypes": {
     "rentNotPaid": "Miete nicht bezahlt",
     "propertyWrecked": "Eigentum beschädigt"
+  },
+  "editTenant": {
+    "title": "Mieter bearbeiten",
+    "tenantName": "Mieter Vorname",
+    "tenantSurname": "Mieter Nachname",
+    "city": "Stadt",
+    "country": "Land",
+    "dateOfBirth": "Geburtsdatum",
+    "violationType": "Verstoßart",
+    "description": "Beschreibung des Verstoßes",
+    "selectViolationType": "Verstoßart auswählen",
+    "selectDateOfBirth": "Geburtsdatum auswählen",
+    "enterCity": "Stadt eingeben",
+    "enterCountry": "Land eingeben",
+    "backToProfile": "Zurück zum Profil",
+    "save": "Speichern",
+    "saving": "Wird gespeichert...",
+    "delete": "Löschen",
+    "updateSuccess": "Mieter erfolgreich aktualisiert",
+    "updateError": "Fehler beim Aktualisieren des Mieters",
+    "deleteError": "Fehler beim Löschen des Mieters",
+    "deleteConfirm": "Sind Sie sicher, dass Sie diesen Mieter löschen möchten?",
+    "loadError": "Fehler beim Laden des Mieters"
   }
 }
