@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import UserAvatarIcon from "@/components/icons/UserAvatarIcon";
+import { translateViolationType } from "@/utils/violationTypeTranslation";
 
 export default function TennantPreview() {
   const { t } = useTranslation();
@@ -76,7 +77,7 @@ export default function TennantPreview() {
                   violationType
                 )}`}
               >
-                {violationType}
+                {translateViolationType(violationType, t)}
               </span>
             )}
           </div>

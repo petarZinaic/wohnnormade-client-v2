@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useTranslation } from "react-i18next";
 import { TenantService } from "@/services";
 import type { Tenant } from "@/types";
+import { translateViolationType } from "@/utils/violationTypeTranslation";
 
 export default function SearchTennant() {
   const { t } = useTranslation();
@@ -91,7 +92,7 @@ export default function SearchTennant() {
                 </div>
               </div>
               <span className="text-xs text-gray-400">
-                {tenant.violationType}
+                {translateViolationType(tenant.violationType, t)}
               </span>
             </li>
           ))}

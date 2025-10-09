@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { useTranslation } from "react-i18next";
 import { useAuth } from "@/context/AuthContext";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { Button, LocationAutocomplete } from "@/components/common";
@@ -16,8 +17,10 @@ import {
   validateCountry,
 } from "@/utils/validation";
 import { formatDateDMY } from "@/utils/date";
+import { translateViolationType } from "@/utils/violationTypeTranslation";
 
 export default function UserProfile() {
+  const { t: translate } = useTranslation();
   const { user, logout } = useAuth();
   const router = useRouter();
 
@@ -488,7 +491,7 @@ export default function UserProfile() {
                             {t.country}
                           </td>
                           <td className="px-4 py-3 text-sm text-gray-700 group-hover:text-white">
-                            {t.violationType}
+                            {translateViolationType(t.violationType, translate)}
                           </td>
                           <td className="px-4 py-3 text-sm text-gray-500 group-hover:text-white">
                             {formatDateDMY((t as any).createdAt) || "-"}

@@ -128,5 +128,9 @@
     "unknownReporter": "Unbekannter Melder",
     "landlord": "Vermieter",
     "loading": "Lädt..."
+  },
+  "violationTypes": {
+    "rentNotPaid": "Miete nicht bezahlt",
+    "propertyWrecked": "Eigentum beschädigt"
   }
 }
