@@ -5,27 +5,29 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useTranslation } from "react-i18next";
 import { useAuth } from "@/context/AuthContext";
+import ProtectedRoute from "@/components/auth/ProtectedRoute";
 import CommunicationService from "@/services/communication";
 import type { ThreadResponse } from "@/services/communication";
 
 export default function ConversationsPage() {
+  return (
+    <ProtectedRoute>
+      <ConversationsPageContent />
+    </ProtectedRoute>
+  );
+}
+
+function ConversationsPageContent() {
   const router = useRouter();
   const { t } = useTranslation();
-  const { user, isLoading } = useAuth();
+  const { user } = useAuth();
   const [conversations, setConversations] = useState<ThreadResponse[]>([]);
   const [error, setError] = useState("");
   const [isLoadingConversations, setIsLoadingConversations] = useState(true);
 
   useEffect(() => {
-    if (!isLoading && !user) {
-      router.push("/login");
-      return;
-    }
-
-    if (user) {
-      fetchConversations();
-    }
-  }, [user, isLoading]);
+    fetchConversations();
+  }, []);
 
   const fetchConversations = async () => {
     try {
@@ -40,7 +42,7 @@ export default function ConversationsPage() {
     }
   };
 
-  if (isLoading || isLoadingConversations) {
+  if (isLoadingConversations) {
     return (
       <div className="flex items-center justify-center min-h-screen bg-gray-50">
         <p className="text-gray-600">
@@ -48,10 +50,6 @@ export default function ConversationsPage() {
         </p>
       </div>
     );
-  }
-
-  if (!user) {
-    return null;
   }
 
   return (

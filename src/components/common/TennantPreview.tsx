@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import { useTranslation } from "react-i18next";
 import UserAvatarIcon from "@/components/icons/UserAvatarIcon";
 import { translateViolationType } from "@/utils/violationTypeTranslation";
@@ -8,6 +9,7 @@ import { ContactReporterModal } from "@/components/forms";
 
 export default function TennantPreview() {
   const { t } = useTranslation();
+  const router = useRouter();
   const [tenant, setTenant] = useState<any>(null);
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
 
@@ -129,7 +131,18 @@ export default function TennantPreview() {
                 </div>
                 <div>
                   <div className="text-sm font-medium text-gray-900 flex items-center gap-2">
-                    {reporterName || t("tenantPreview.unknownReporter")}
+                    {reporter && reporter.id ? (
+                      <button
+                        onClick={() => router.push(`/landlord/${reporter.id}`)}
+                        className="text-blueLight hover:text-orange font-semibold hover:underline transition-colors"
+                      >
+                        {reporterName || t("tenantPreview.unknownReporter")}
+                      </button>
+                    ) : (
+                      <span>
+                        {reporterName || t("tenantPreview.unknownReporter")}
+                      </span>
+                    )}
                     {reporter && (
                       <span className="inline-flex items-center rounded-full border border-gray-300 px-2 py-0.5 text-[11px] font-medium text-gray-700">
                         {t("tenantPreview.landlord")}

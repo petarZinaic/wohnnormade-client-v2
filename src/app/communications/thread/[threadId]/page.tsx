@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { useTranslation } from "react-i18next";
 import { useAuth } from "@/context/AuthContext";
+import ProtectedRoute from "@/components/auth/ProtectedRoute";
 import CommunicationService from "@/services/communication";
 import Button from "@/components/common/Button";
 import type {
@@ -12,10 +13,18 @@ import type {
 } from "@/services/communication";
 
 export default function ThreadPage() {
+  return (
+    <ProtectedRoute>
+      <ThreadPageContent />
+    </ProtectedRoute>
+  );
+}
+
+function ThreadPageContent() {
   const params = useParams();
   const router = useRouter();
   const { t } = useTranslation();
-  const { user, isLoading } = useAuth();
+  const { user } = useAuth();
   const [thread, setThread] = useState<ThreadResponse | null>(null);
   const [newMessage, setNewMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -26,15 +35,10 @@ export default function ThreadPage() {
   const threadId = params.threadId as string;
 
   useEffect(() => {
-    if (!isLoading && !user) {
-      router.push("/login");
-      return;
-    }
-
-    if (user && threadId) {
+    if (threadId) {
       fetchThread();
     }
-  }, [user, isLoading, threadId]);
+  }, [threadId]);
 
   useEffect(() => {
     // Scroll to bottom when messages change
@@ -92,16 +96,12 @@ export default function ThreadPage() {
     }
   };
 
-  if (isLoading || isLoadingThread) {
+  if (isLoadingThread) {
     return (
       <div className="flex items-center justify-center min-h-screen bg-gray-50">
         <p className="text-gray-600">{t("communications.loadingThread")}</p>
       </div>
     );
-  }
-
-  if (!user) {
-    return null;
   }
 
   if (!thread) {

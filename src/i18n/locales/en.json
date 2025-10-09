@@ -233,5 +233,21 @@
     "failedToSend": "Failed to send message",
     "accessDenied": "Access Denied",
     "accessDeniedMessage": "You don't have permission to view this conversation. Only participants can access this thread."
+  },
+  "landlordDetails": {
+    "landlord": "Landlord",
+    "information": "Personal Information",
+    "email": "Email Address",
+    "memberSince": "Member Since",
+    "city": "City",
+    "country": "Country",
+    "reportedTenants": "Reported Tenants",
+    "noReportedTenants": "This landlord hasn't reported any tenants yet.",
+    "reportedAt": "Reported on",
+    "loading": "Loading landlord details...",
+    "loadError": "Failed to load landlord details",
+    "errorTitle": "Error Loading Landlord",
+    "goBack": "Go Back",
+    "invalidId": "Invalid landlord ID"
   }
 }

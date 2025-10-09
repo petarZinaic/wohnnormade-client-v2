@@ -233,5 +233,21 @@
     "failedToSend": "Fehler beim Senden der Nachricht",
     "accessDenied": "Zugriff verweigert",
     "accessDeniedMessage": "Sie haben keine Berechtigung, diese Konversation zu sehen. Nur Teilnehmer können auf diesen Thread zugreifen."
+  },
+  "landlordDetails": {
+    "landlord": "Vermieter",
+    "information": "Persönliche Informationen",
+    "email": "E-Mail-Adresse",
+    "memberSince": "Mitglied seit",
+    "city": "Stadt",
+    "country": "Land",
+    "reportedTenants": "Gemeldete Mieter",
+    "noReportedTenants": "Dieser Vermieter hat noch keine Mieter gemeldet.",
+    "reportedAt": "Gemeldet am",
+    "loading": "Vermieterdetails werden geladen...",
+    "loadError": "Fehler beim Laden der Vermieterdetails",
+    "errorTitle": "Fehler beim Laden des Vermieters",
+    "goBack": "Zurück",
+    "invalidId": "Ungültige Vermieter-ID"
   }
 }
