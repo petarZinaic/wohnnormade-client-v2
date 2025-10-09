@@ -20,6 +20,60 @@
     "edit": "Edit",
     "delete": "Delete"
   },
+  "footer": {
+    "termsMessage": "Make sure to read our terms of use and privacy policy.",
+    "communityMessage": "Register and become a part of our community.",
+    "copyright": "Copyright © All rights reserved."
+  },
+  "auth": {
+    "loginRequired": "You need to be logged in to access this page. Redirecting to login..."
+  },
+  "login": {
+    "title": "Login to Wohnnomade",
+    "emailLabel": "Email Address",
+    "emailPlaceholder": "Enter your email",
+    "passwordLabel": "Password",
+    "passwordPlaceholder": "Enter your password",
+    "signingIn": "Signing In...",
+    "signIn": "Sign In",
+    "forgotPassword": "Forgot your password?",
+    "noAccount": "Don't have an account?",
+    "signUpHere": "Sign up here",
+    "loginFailed": "Login failed"
+  },
+  "forgotPassword": {
+    "title": "Reset Password",
+    "emailLabel": "Email Address",
+    "emailPlaceholder": "Enter your email address",
+    "helpText": "Enter your email address and we'll send you a link to reset your password.",
+    "sending": "Sending...",
+    "sendResetLink": "Send Reset Link",
+    "backToLogin": "Back to Login",
+    "sendFailed": "Failed to send reset email"
+  },
+  "register": {
+    "title": "Register",
+    "emailLabel": "Email Address",
+    "emailPlaceholder": "Enter your email",
+    "nameLabel": "Name",
+    "namePlaceholder": "Enter your name",
+    "surnameLabel": "Surname",
+    "surnamePlaceholder": "Enter your surname",
+    "cityLabel": "City",
+    "cityPlaceholder": "Enter your city",
+    "countryLabel": "Country",
+    "countryPlaceholder": "Enter your country",
+    "passwordLabel": "Password",
+    "passwordPlaceholder": "Enter your password (min. 8 characters)",
+    "passwordHint": "Password must be at least 8 characters with uppercase, lowercase, number, and special character",
+    "confirmPasswordLabel": "Confirm Password",
+    "confirmPasswordPlaceholder": "Confirm your password",
+    "creatingAccount": "Creating Account...",
+    "createAccount": "Create Account",
+    "haveAccount": "Already have an account?",
+    "signInHere": "Sign in here",
+    "registrationFailed": "Registration failed"
+  },
   "home": {
     "title": "Who",
     "titleSpan": "NOT",

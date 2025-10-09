@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { useTranslation } from "react-i18next";
 import { useAuth } from "@/context/AuthContext";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { Button } from "@/components/common";
@@ -12,6 +13,7 @@ interface LoginFormProps {
 }
 
 export default function LoginForm({ onSuccess }: LoginFormProps) {
+  const { t } = useTranslation();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -33,7 +35,7 @@ export default function LoginForm({ onSuccess }: LoginFormProps) {
         router.push("/");
       }
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Login failed");
+      setError(err instanceof Error ? err.message : t("login.loginFailed"));
     } finally {
       setIsLoading(false);
     }
@@ -44,7 +46,7 @@ export default function LoginForm({ onSuccess }: LoginFormProps) {
       <div className="w-full max-w-md mx-auto bg-white rounded-lg shadow-md">
         <div className="bg-orange text-white rounded-t-lg">
           <h1 className="text-xl text-center font-bold mb-6 py-4">
-            Login to Wohnnomade
+            {t("login.title")}
           </h1>
         </div>
         <form className="p-6" onSubmit={handleSubmit}>
@@ -59,13 +61,13 @@ export default function LoginForm({ onSuccess }: LoginFormProps) {
               className="block text-gray-700 text-sm font-bold mb-2"
               htmlFor="email"
             >
-              Email Address
+              {t("login.emailLabel")}
             </label>
             <input
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               id="email"
               type="email"
-              placeholder="Enter your email"
+              placeholder={t("login.emailPlaceholder")}
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
@@ -77,14 +79,14 @@ export default function LoginForm({ onSuccess }: LoginFormProps) {
               className="block text-gray-700 text-sm font-bold mb-2"
               htmlFor="password"
             >
-              Password
+              {t("login.passwordLabel")}
             </label>
             <div className="relative">
               <input
                 className="shadow appearance-none border rounded w-full py-2 px-3 pr-10 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 id="password"
                 type={showPassword ? "text" : "password"}
-                placeholder="Enter your password"
+                placeholder={t("login.passwordPlaceholder")}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
@@ -106,11 +108,10 @@ export default function LoginForm({ onSuccess }: LoginFormProps) {
 
           <div className="flex items-center justify-between">
             <Button
-              fullWidth
               type="submit"
               isLoading={isLoading}
               disabled={isLoading}
-              text={isLoading ? "Signing In..." : "Sign In"}
+              text={isLoading ? t("login.signingIn") : t("login.signIn")}
             />
           </div>
 
@@ -119,19 +120,19 @@ export default function LoginForm({ onSuccess }: LoginFormProps) {
               href="/forgot-password"
               className="text-orange hover:text-orangeDark text-sm"
             >
-              Forgot your password?
+              {t("login.forgotPassword")}
             </Link>
           </div>
 
           <div className="mt-6 text-center">
             <span className="text-gray-600 text-sm">
-              Don't have an account?{" "}
+              {t("login.noAccount")}{" "}
             </span>
             <Link
               href="/register"
               className="text-orange hover:text-orangeDark text-sm font-semibold"
             >
-              Sign up here
+              {t("login.signUpHere")}
             </Link>
           </div>
         </form>

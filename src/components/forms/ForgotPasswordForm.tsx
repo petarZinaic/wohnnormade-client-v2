@@ -2,10 +2,12 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { useTranslation } from "react-i18next";
 import { getApiUrl } from "@/utils/api";
 import { Button } from "@/components/common";
 
 export default function ForgotPasswordForm() {
+  const { t } = useTranslation();
   const [email, setEmail] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState("");
@@ -28,14 +30,14 @@ export default function ForgotPasswordForm() {
 
       if (!response.ok) {
         const error = await response.json();
-        throw new Error(error.error?.message || "Failed to send reset email");
+        throw new Error(error.error?.message || t("forgotPassword.sendFailed"));
       }
 
       const result = await response.json();
       setMessage(result.message);
     } catch (err) {
       setError(
-        err instanceof Error ? err.message : "Failed to send reset email"
+        err instanceof Error ? err.message : t("forgotPassword.sendFailed")
       );
     } finally {
       setIsLoading(false);
@@ -47,7 +49,7 @@ export default function ForgotPasswordForm() {
       <div className="w-full max-w-md mx-auto bg-white rounded-lg shadow-md">
         <div className="bg-orange text-white rounded-t-lg">
           <h1 className="text-xl text-center font-bold mb-6 py-4">
-            Reset Password
+            {t("forgotPassword.title")}
           </h1>
         </div>
         <form className="p-6" onSubmit={handleSubmit}>
@@ -68,20 +70,19 @@ export default function ForgotPasswordForm() {
               className="block text-gray-700 text-sm font-bold mb-2"
               htmlFor="email"
             >
-              Email Address
+              {t("forgotPassword.emailLabel")}
             </label>
             <input
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               id="email"
               type="email"
-              placeholder="Enter your email address"
+              placeholder={t("forgotPassword.emailPlaceholder")}
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
             />
             <p className="text-sm text-gray-600 mt-2">
-              Enter your email address and we'll send you a link to reset your
-              password.
+              {t("forgotPassword.helpText")}
             </p>
           </div>
 
@@ -91,7 +92,11 @@ export default function ForgotPasswordForm() {
               type="submit"
               isLoading={isLoading}
               disabled={isLoading}
-              text={isLoading ? "Sending..." : "Send Reset Link"}
+              text={
+                isLoading
+                  ? t("forgotPassword.sending")
+                  : t("forgotPassword.sendResetLink")
+              }
             />
           </div>
 
@@ -100,7 +105,7 @@ export default function ForgotPasswordForm() {
               href="/login"
               className="text-orange hover:text-orangeDark text-sm"
             >
-              Back to Login
+              {t("forgotPassword.backToLogin")}
             </Link>
           </div>
         </form>

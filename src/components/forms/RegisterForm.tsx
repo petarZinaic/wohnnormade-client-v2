@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { useTranslation } from "react-i18next";
 import { useAuth } from "@/context/AuthContext";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { Button, LocationAutocomplete } from "@/components/common";
@@ -17,6 +18,7 @@ interface RegisterFormProps {
 }
 
 export default function RegisterForm({ onSuccess }: RegisterFormProps) {
+  const { t } = useTranslation();
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
@@ -65,7 +67,9 @@ export default function RegisterForm({ onSuccess }: RegisterFormProps) {
         router.push("/");
       }
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Registration failed");
+      setError(
+        err instanceof Error ? err.message : t("register.registrationFailed")
+      );
     } finally {
       setIsLoading(false);
     }
@@ -82,7 +86,9 @@ export default function RegisterForm({ onSuccess }: RegisterFormProps) {
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <div className="w-full max-w-4xl mx-auto bg-white rounded-lg shadow-md">
         <div className="bg-orange text-white rounded-t-lg">
-          <h1 className="text-xl text-center font-bold mb-6 py-4">Register</h1>
+          <h1 className="text-xl text-center font-bold mb-6 py-4">
+            {t("register.title")}
+          </h1>
         </div>
         <form className="p-6" onSubmit={handleSubmit}>
           {error && (
@@ -96,7 +102,7 @@ export default function RegisterForm({ onSuccess }: RegisterFormProps) {
               className="block text-gray-700 text-sm font-bold mb-2"
               htmlFor="email"
             >
-              Email Address
+              {t("register.emailLabel")}
             </label>
             <input
               className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
@@ -104,7 +110,7 @@ export default function RegisterForm({ onSuccess }: RegisterFormProps) {
               }`}
               id="email"
               type="email"
-              placeholder="Enter your email"
+              placeholder={t("register.emailPlaceholder")}
               value={email}
               onChange={(e) => {
                 setEmail(e.target.value);
@@ -125,7 +131,7 @@ export default function RegisterForm({ onSuccess }: RegisterFormProps) {
                 className="block text-gray-700 text-sm font-bold mb-2"
                 htmlFor="name"
               >
-                Name
+                {t("register.nameLabel")}
               </label>
               <input
                 className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
@@ -133,7 +139,7 @@ export default function RegisterForm({ onSuccess }: RegisterFormProps) {
                 }`}
                 id="name"
                 type="text"
-                placeholder="Enter your name"
+                placeholder={t("register.namePlaceholder")}
                 value={name}
                 onChange={(e) => {
                   setName(e.target.value);
@@ -152,7 +158,7 @@ export default function RegisterForm({ onSuccess }: RegisterFormProps) {
                 className="block text-gray-700 text-sm font-bold mb-2"
                 htmlFor="surname"
               >
-                Surname
+                {t("register.surnameLabel")}
               </label>
               <input
                 className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
@@ -160,7 +166,7 @@ export default function RegisterForm({ onSuccess }: RegisterFormProps) {
                 }`}
                 id="surname"
                 type="text"
-                placeholder="Enter your surname"
+                placeholder={t("register.surnamePlaceholder")}
                 value={surname}
                 onChange={(e) => {
                   setSurname(e.target.value);
@@ -183,8 +189,8 @@ export default function RegisterForm({ onSuccess }: RegisterFormProps) {
                 setCity(value);
                 handleFieldChange("city", value);
               }}
-              placeholder="Enter your city"
-              label="City"
+              placeholder={t("register.cityPlaceholder")}
+              label={t("register.cityLabel")}
               error={validationErrors.city}
             />
             <LocationAutocomplete
@@ -193,8 +199,8 @@ export default function RegisterForm({ onSuccess }: RegisterFormProps) {
                 setCountry(value);
                 handleFieldChange("country", value);
               }}
-              placeholder="Enter your country"
-              label="Country"
+              placeholder={t("register.countryPlaceholder")}
+              label={t("register.countryLabel")}
               error={validationErrors.country}
             />
           </div>
@@ -204,7 +210,7 @@ export default function RegisterForm({ onSuccess }: RegisterFormProps) {
               className="block text-gray-700 text-sm font-bold mb-2"
               htmlFor="password"
             >
-              Password
+              {t("register.passwordLabel")}
             </label>
             <div className="relative">
               <input
@@ -213,7 +219,7 @@ export default function RegisterForm({ onSuccess }: RegisterFormProps) {
                 }`}
                 id="password"
                 type={showPassword ? "text" : "password"}
-                placeholder="Enter your password (min. 8 characters)"
+                placeholder={t("register.passwordPlaceholder")}
                 value={password}
                 onChange={(e) => {
                   setPassword(e.target.value);
@@ -240,8 +246,7 @@ export default function RegisterForm({ onSuccess }: RegisterFormProps) {
               </p>
             )}
             <p className="text-gray-600 text-xs mt-1">
-              Password must be at least 8 characters with uppercase, lowercase,
-              number, and special character
+              {t("register.passwordHint")}
             </p>
           </div>
 
@@ -250,7 +255,7 @@ export default function RegisterForm({ onSuccess }: RegisterFormProps) {
               className="block text-gray-700 text-sm font-bold mb-2"
               htmlFor="confirmPassword"
             >
-              Confirm Password
+              {t("register.confirmPasswordLabel")}
             </label>
             <div className="relative">
               <input
@@ -259,7 +264,7 @@ export default function RegisterForm({ onSuccess }: RegisterFormProps) {
                 }`}
                 id="confirmPassword"
                 type={showConfirmPassword ? "text" : "password"}
-                placeholder="Confirm your password"
+                placeholder={t("register.confirmPasswordPlaceholder")}
                 value={confirmPassword}
                 onChange={(e) => {
                   setConfirmPassword(e.target.value);
@@ -293,19 +298,23 @@ export default function RegisterForm({ onSuccess }: RegisterFormProps) {
               type="submit"
               isLoading={isLoading}
               disabled={isLoading}
-              text={isLoading ? "Creating Account..." : "Create Account"}
+              text={
+                isLoading
+                  ? t("register.creatingAccount")
+                  : t("register.createAccount")
+              }
             />
           </div>
 
           <div className="mt-6 text-center">
             <span className="text-gray-600 text-sm">
-              Already have an account?{" "}
+              {t("register.haveAccount")}{" "}
             </span>
             <Link
               href="/login"
               className="text-orange hover:text-orangeDark text-sm font-semibold"
             >
-              Sign in here
+              {t("register.signInHere")}
             </Link>
           </div>
         </form>
