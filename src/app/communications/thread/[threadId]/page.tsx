@@ -1,0 +1,233 @@
+"use client";
+
+import { useState, useEffect, useRef } from "react";
+import { useParams, useRouter } from "next/navigation";
+import { useTranslation } from "react-i18next";
+import { useAuth } from "@/context/AuthContext";
+import CommunicationService from "@/services/communication";
+import Button from "@/components/common/Button";
+import type {
+  ThreadResponse,
+  CommunicationMessage,
+} from "@/services/communication";
+
+export default function ThreadPage() {
+  const params = useParams();
+  const router = useRouter();
+  const { t } = useTranslation();
+  const { user, isLoading } = useAuth();
+  const [thread, setThread] = useState<ThreadResponse | null>(null);
+  const [newMessage, setNewMessage] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState("");
+  const [isLoadingThread, setIsLoadingThread] = useState(true);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  const threadId = params.threadId as string;
+
+  useEffect(() => {
+    if (!isLoading && !user) {
+      router.push("/login");
+      return;
+    }
+
+    if (user && threadId) {
+      fetchThread();
+    }
+  }, [user, isLoading, threadId]);
+
+  useEffect(() => {
+    // Scroll to bottom when messages change
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [thread?.communications]);
+
+  const fetchThread = async () => {
+    try {
+      setIsLoadingThread(true);
+      setError("");
+      const response = await CommunicationService.getThread(threadId);
+      setThread(response.result);
+    } catch (err: any) {
+      setError(err.message || t("communications.failedToLoad"));
+    } finally {
+      setIsLoadingThread(false);
+    }
+  };
+
+  const sendReply = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newMessage.trim() || newMessage.trim().length < 20) {
+      setError(t("contactReporter.minLength"));
+      return;
+    }
+
+    setIsSubmitting(true);
+    setError("");
+
+    try {
+      await CommunicationService.reply({
+        threadId,
+        message: newMessage.trim(),
+      });
+
+      setNewMessage("");
+      await fetchThread(); // Refresh thread
+    } catch (err: any) {
+      setError(err.message || t("communications.failedToSend"));
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  if (isLoading || isLoadingThread) {
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-gray-50">
+        <p className="text-gray-600">{t("communications.loadingThread")}</p>
+      </div>
+    );
+  }
+
+  if (!user) {
+    return null;
+  }
+
+  if (!thread) {
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-gray-50">
+        <div className="text-center">
+          <p className="text-red-600 mb-4">
+            {error || t("communications.failedToLoad")}
+          </p>
+          <Button
+            variant="primary"
+            onClick={() => router.push("/communications")}
+          >
+            {t("navigation.communications")}
+          </Button>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="min-h-screen bg-gray-50 pt-24 sm:pt-28 pb-10">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Header */}
+        <div className="mb-6">
+          <Button
+            variant="outline"
+            size="md"
+            onClick={() => router.push("/communications")}
+            className="mb-4"
+          >
+            <span className="text-lg mr-2">←</span>
+            {t("navigation.communications")}
+          </Button>
+          <div className="bg-white rounded-lg shadow-md p-6 border-t-4 border-orange">
+            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">
+              {t("communications.conversationAbout")} {thread.tenant.name}{" "}
+              {thread.tenant.surname}
+            </h1>
+          </div>
+        </div>
+
+        {/* Messages */}
+        <div className="space-y-4 mb-6" ref={messagesEndRef}>
+          {thread.communications.map((comm: CommunicationMessage) => {
+            const isSentByMe = comm.senderId === user?.id;
+            return (
+              <div
+                key={comm.id}
+                className={`rounded-lg shadow-sm p-4 ${
+                  isSentByMe
+                    ? "ml-8 bg-orangeLight border-l-4 border-orange"
+                    : "mr-8 bg-[rgba(69,90,100,0.08)] border-l-4 border-blueLight"
+                }`}
+              >
+                <div className="flex justify-between items-start mb-2">
+                  <div>
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <strong
+                        className={
+                          isSentByMe ? "text-orangeDark" : "text-blueLight"
+                        }
+                      >
+                        {comm.sender.name} {comm.sender.surname}
+                      </strong>
+                      <span className="text-xs text-gray bg-white px-2 py-0.5 rounded border border-gray-200">
+                        {comm.sender.email}
+                      </span>
+                    </div>
+                    <span className="text-sm text-gray">
+                      {new Date(comm.createdAt).toLocaleString()}
+                    </span>
+                  </div>
+                </div>
+                <p
+                  className={`whitespace-pre-wrap leading-relaxed ${
+                    isSentByMe ? "text-gray-900" : "text-gray-800"
+                  }`}
+                >
+                  {comm.message}
+                </p>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Reply Form */}
+        <div className="bg-white rounded-lg shadow-md p-6 sm:p-8 border border-gray-200">
+          <h2 className="text-lg font-semibold text-gray-900 mb-4">
+            {t("communications.typeReply")}
+          </h2>
+          <form onSubmit={sendReply} className="space-y-5">
+            <div>
+              <textarea
+                value={newMessage}
+                onChange={(e) => setNewMessage(e.target.value)}
+                placeholder={t("communications.typeReply")}
+                className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-orange focus:border-orange resize-none transition-colors text-gray-900 placeholder:text-gray-400"
+                rows={5}
+                required
+                minLength={20}
+              />
+              <div className="flex justify-between items-center mt-2">
+                <p className="text-xs text-gray-500">
+                  {t("contactReporter.minLength")}
+                </p>
+                <p
+                  className={`text-sm font-medium ${
+                    newMessage.length >= 20 ? "text-green-600" : "text-gray-500"
+                  }`}
+                >
+                  {newMessage.length} / 20
+                </p>
+              </div>
+            </div>
+
+            {error && (
+              <div className="p-4 bg-red-50 text-red-600 rounded-lg text-sm border border-red-100 flex items-start gap-2">
+                <span className="text-red-500 font-bold">⚠</span>
+                <span>{error}</span>
+              </div>
+            )}
+
+            <div className="flex justify-end pt-2">
+              <Button
+                type="submit"
+                variant="primary"
+                size="lg"
+                disabled={isSubmitting || newMessage.trim().length < 20}
+                isLoading={isSubmitting}
+              >
+                {isSubmitting
+                  ? t("communications.replying")
+                  : t("communications.reply")}
+              </Button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  );
+}

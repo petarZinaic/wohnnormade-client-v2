@@ -4,7 +4,8 @@
     "contribute": "Beitragen",
     "search": "Suchen",
     "login": "Anmelden",
-    "profile": "Profil"
+    "profile": "Profil",
+    "communications": "Nachrichten"
   },
   "language": {
     "select": "Sprache auswählen",
@@ -18,7 +19,11 @@
     "cancel": "Abbrechen",
     "save": "Speichern",
     "edit": "Bearbeiten",
-    "delete": "Löschen"
+    "delete": "Löschen",
+    "send": "Senden",
+    "sending": "Wird gesendet...",
+    "mustBeLoggedIn": "Sie müssen angemeldet sein",
+    "errorSendingMessage": "Fehler beim Senden der Nachricht"
   },
   "footer": {
     "termsMessage": "Bitte lesen Sie unsere Nutzungsbedingungen und Datenschutzrichtlinie.",
@@ -128,7 +133,8 @@
     "description": "Beschreibung des Verstoßes",
     "unknownReporter": "Unbekannter Melder",
     "landlord": "Vermieter",
-    "loading": "Lädt..."
+    "loading": "Lädt...",
+    "contactReporter": "Melder kontaktieren"
   },
   "violationTypes": {
     "rentNotPaid": "Miete nicht bezahlt",
@@ -200,5 +206,29 @@
     "deleteAccount": "Konto löschen",
     "deleteAccountConfirm": "Sind Sie sicher, dass Sie Ihr Konto löschen möchten? Diese Aktion kann nicht rückgängig gemacht werden.",
     "deleteAccountFailed": "Fehler beim Löschen des Kontos"
+  },
+  "contactReporter": {
+    "title": "Vermieter kontaktieren",
+    "to": "An",
+    "regarding": "Bezüglich Mieter",
+    "message": "Ihre Nachricht",
+    "messagePlaceholder": "Stellen Sie sich vor und erklären Sie, warum Sie sich melden...",
+    "success": "Nachricht erfolgreich gesendet!",
+    "redirecting": "Weiterleitung zur Konversation...",
+    "minLength": "Nachricht muss mindestens 20 Zeichen lang sein"
+  },
+  "communications": {
+    "title": "Meine Konversationen",
+    "noConversations": "Noch keine Konversationen.",
+    "aboutTenant": "Über",
+    "loadingConversations": "Konversationen werden geladen...",
+    "loadingThread": "Konversation wird geladen...",
+    "conversationAbout": "Konversation über",
+    "typeReply": "Ihre Antwort eingeben...",
+    "reply": "Antworten",
+    "replying": "Wird geantwortet...",
+    "lastMessage": "Letzte Nachricht",
+    "failedToLoad": "Fehler beim Laden der Konversationen",
+    "failedToSend": "Fehler beim Senden der Nachricht"
   }
 }

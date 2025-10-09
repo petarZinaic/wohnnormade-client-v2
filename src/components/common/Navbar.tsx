@@ -65,6 +65,17 @@ function Navbar() {
 
         {isAuthenticated ? (
           <>
+            <Link href="/communications">
+              <li
+                className={`px-6 lg:px-8 cursor-pointer uppercase ${
+                  pathname?.startsWith("/communications")
+                    ? "underline text-orange"
+                    : ""
+                } hover:text-orange`}
+              >
+                {t("navigation.communications")}
+              </li>
+            </Link>
             <Link href="/profile">
               <li
                 className={`px-6 lg:px-8 cursor-pointer flex items-center ${
@@ -148,6 +159,15 @@ function Navbar() {
           </li>
           {isAuthenticated ? (
             <>
+              <Link href="/communications" onClick={handleNav}>
+                <li
+                  className={`p-4 cursor-pointer uppercase ${
+                    pathname?.startsWith("/communications") ? "text-orange" : ""
+                  } border-b border-gray`}
+                >
+                  {t("navigation.communications")}
+                </li>
+              </Link>
               <Link href="/profile" onClick={handleNav}>
                 <li
                   className={`p-4 cursor-pointer flex items-center ${

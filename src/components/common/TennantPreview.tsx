@@ -4,10 +4,12 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import UserAvatarIcon from "@/components/icons/UserAvatarIcon";
 import { translateViolationType } from "@/utils/violationTypeTranslation";
+import { ContactReporterModal } from "@/components/forms";
 
 export default function TennantPreview() {
   const { t } = useTranslation();
   const [tenant, setTenant] = useState<any>(null);
+  const [isContactModalOpen, setIsContactModalOpen] = useState(false);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -120,27 +122,46 @@ export default function TennantPreview() {
           </div>
 
           <div className="mt-8 border-t pt-6">
-            <div className="flex items-center gap-4">
-              <div className="h-10 w-10 flex items-center justify-center rounded-full bg-gray-100 text-gray-700 font-semibold">
-                {reporterInitials}
-              </div>
-              <div>
-                <div className="text-sm font-medium text-gray-900 flex items-center gap-2">
-                  {reporterName || t("tenantPreview.unknownReporter")}
-                  {reporter && (
-                    <span className="inline-flex items-center rounded-full border border-gray-300 px-2 py-0.5 text-[11px] font-medium text-gray-700">
-                      {t("tenantPreview.landlord")}
-                    </span>
+            <div className="flex items-center gap-4 justify-between flex-wrap">
+              <div className="flex items-center gap-4">
+                <div className="h-10 w-10 flex items-center justify-center rounded-full bg-gray-100 text-gray-700 font-semibold">
+                  {reporterInitials}
+                </div>
+                <div>
+                  <div className="text-sm font-medium text-gray-900 flex items-center gap-2">
+                    {reporterName || t("tenantPreview.unknownReporter")}
+                    {reporter && (
+                      <span className="inline-flex items-center rounded-full border border-gray-300 px-2 py-0.5 text-[11px] font-medium text-gray-700">
+                        {t("tenantPreview.landlord")}
+                      </span>
+                    )}
+                  </div>
+                  {reporterEmail && (
+                    <div className="text-sm text-gray-500">{reporterEmail}</div>
                   )}
                 </div>
-                {reporterEmail && (
-                  <div className="text-sm text-gray-500">{reporterEmail}</div>
-                )}
               </div>
+
+              {reporter && (
+                <button
+                  onClick={() => setIsContactModalOpen(true)}
+                  className="px-4 py-2 bg-orange text-white rounded-lg hover:bg-orange-600 transition-colors text-sm font-medium shadow-sm"
+                >
+                  {t("tenantPreview.contactReporter")}
+                </button>
+              )}
             </div>
           </div>
         </div>
       </div>
+
+      {isContactModalOpen && reporter && (
+        <ContactReporterModal
+          tenant={tenant}
+          reporter={reporter}
+          onClose={() => setIsContactModalOpen(false)}
+        />
+      )}
     </div>
   );
 }

@@ -4,7 +4,8 @@
     "contribute": "Contribute",
     "search": "Search",
     "login": "Login",
-    "profile": "Profile"
+    "profile": "Profile",
+    "communications": "Messages"
   },
   "language": {
     "select": "Select Language",
@@ -18,7 +19,11 @@
     "cancel": "Cancel",
     "save": "Save",
     "edit": "Edit",
-    "delete": "Delete"
+    "delete": "Delete",
+    "send": "Send",
+    "sending": "Sending...",
+    "mustBeLoggedIn": "You must be logged in",
+    "errorSendingMessage": "Error sending message"
   },
   "footer": {
     "termsMessage": "Make sure to read our terms of use and privacy policy.",
@@ -128,7 +133,8 @@
     "description": "Description of Violation",
     "unknownReporter": "Unknown reporter",
     "landlord": "Landlord",
-    "loading": "Loading..."
+    "loading": "Loading...",
+    "contactReporter": "Contact Reporter"
   },
   "violationTypes": {
     "rentNotPaid": "Rent Not Paid",
@@ -200,5 +206,29 @@
     "deleteAccount": "Delete Account",
     "deleteAccountConfirm": "Are you sure you want to delete your account? This action cannot be undone.",
     "deleteAccountFailed": "Failed to delete account"
+  },
+  "contactReporter": {
+    "title": "Contact Landlord",
+    "to": "To",
+    "regarding": "Regarding tenant",
+    "message": "Your message",
+    "messagePlaceholder": "Introduce yourself and explain why you're reaching out...",
+    "success": "Message sent successfully!",
+    "redirecting": "Redirecting to conversation...",
+    "minLength": "Message must be at least 20 characters"
+  },
+  "communications": {
+    "title": "My Conversations",
+    "noConversations": "No conversations yet.",
+    "aboutTenant": "About",
+    "loadingConversations": "Loading conversations...",
+    "loadingThread": "Loading conversation...",
+    "conversationAbout": "Conversation about",
+    "typeReply": "Type your reply...",
+    "reply": "Reply",
+    "replying": "Replying...",
+    "lastMessage": "Last message",
+    "failedToLoad": "Failed to load conversations",
+    "failedToSend": "Failed to send message"
   }
 }
