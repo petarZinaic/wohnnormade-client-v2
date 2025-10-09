@@ -152,7 +152,7 @@ function ThreadPageContent() {
             variant="outline"
             size="md"
             onClick={() => router.push("/communications")}
-            className="mb-4"
+            className="mb-4 border-blueLight text-blueLight hover:bg-blueLight hover:text-white hover:border-blueLight transition-colors"
           >
             <span className="text-lg mr-2">←</span>
             {t("navigation.communications")}
