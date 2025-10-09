@@ -229,6 +229,9 @@
     "replying": "Replying...",
     "lastMessage": "Last message",
     "failedToLoad": "Failed to load conversations",
-    "failedToSend": "Failed to send message"
+    "failedToLoadMessage": "Unable to load this conversation. Please try again later.",
+    "failedToSend": "Failed to send message",
+    "accessDenied": "Access Denied",
+    "accessDeniedMessage": "You don't have permission to view this conversation. Only participants can access this thread."
   }
 }

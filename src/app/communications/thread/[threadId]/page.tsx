@@ -46,6 +46,19 @@ export default function ThreadPage() {
       setIsLoadingThread(true);
       setError("");
       const response = await CommunicationService.getThread(threadId);
+
+      // Check if current user is a participant in this thread
+      const isParticipant = response.result.communications.some(
+        (comm: CommunicationMessage) =>
+          comm.senderId === user?.id || comm.recipientId === user?.id
+      );
+
+      if (!isParticipant) {
+        setError(t("communications.accessDenied"));
+        setThread(null);
+        return;
+      }
+
       setThread(response.result);
     } catch (err: any) {
       setError(err.message || t("communications.failedToLoad"));
@@ -93,11 +106,21 @@ export default function ThreadPage() {
 
   if (!thread) {
     return (
-      <div className="flex items-center justify-center min-h-screen bg-gray-50">
-        <div className="text-center">
-          <p className="text-red-600 mb-4">
-            {error || t("communications.failedToLoad")}
-          </p>
+      <div className="flex items-center justify-center min-h-screen bg-gray-50 px-4">
+        <div className="text-center max-w-md">
+          <div className="mb-6">
+            <div className="text-6xl mb-4">🔒</div>
+            <h2 className="text-2xl font-bold text-gray-900 mb-2">
+              {error === t("communications.accessDenied")
+                ? t("communications.accessDenied")
+                : t("communications.failedToLoad")}
+            </h2>
+            <p className="text-gray-600">
+              {error === t("communications.accessDenied")
+                ? t("communications.accessDeniedMessage")
+                : error || t("communications.failedToLoadMessage")}
+            </p>
+          </div>
           <Button
             variant="primary"
             onClick={() => router.push("/communications")}

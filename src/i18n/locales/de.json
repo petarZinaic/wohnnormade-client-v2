@@ -229,6 +229,9 @@
     "replying": "Wird geantwortet...",
     "lastMessage": "Letzte Nachricht",
     "failedToLoad": "Fehler beim Laden der Konversationen",
-    "failedToSend": "Fehler beim Senden der Nachricht"
+    "failedToLoadMessage": "Diese Konversation konnte nicht geladen werden. Bitte versuchen Sie es später erneut.",
+    "failedToSend": "Fehler beim Senden der Nachricht",
+    "accessDenied": "Zugriff verweigert",
+    "accessDeniedMessage": "Sie haben keine Berechtigung, diese Konversation zu sehen. Nur Teilnehmer können auf diesen Thread zugreifen."
   }
 }
