@@ -132,6 +132,17 @@ function ThreadPageContent() {
     );
   }
 
+  // Get the other participant (not the current user)
+  const getOtherParticipant = () => {
+    const firstMessage = thread.communications[0];
+    if (firstMessage.senderId === user?.id) {
+      return firstMessage.recipient;
+    }
+    return firstMessage.sender;
+  };
+
+  const otherParticipant = getOtherParticipant();
+
   return (
     <div className="min-h-screen bg-gray-50 pt-24 sm:pt-28 pb-10">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -147,10 +158,33 @@ function ThreadPageContent() {
             {t("navigation.communications")}
           </Button>
           <div className="bg-white rounded-lg shadow-md p-6 border-t-4 border-orange">
-            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">
-              {t("communications.conversationAbout")} {thread.tenant.name}{" "}
-              {thread.tenant.surname}
-            </h1>
+            <div className="flex items-center gap-4 mb-3">
+              <div className="h-14 w-14 flex items-center justify-center rounded-full bg-blueLight text-white font-bold text-xl">
+                {otherParticipant.name[0]}
+                {otherParticipant.surname[0]}
+              </div>
+              <div className="flex-1">
+                <div
+                  onClick={() =>
+                    router.push(`/landlord/${otherParticipant.id}`)
+                  }
+                  className="text-xl sm:text-2xl font-bold text-blueLight hover:text-orange cursor-pointer hover:underline transition-colors inline-block"
+                >
+                  {otherParticipant.name} {otherParticipant.surname}
+                </div>
+                <p className="text-sm text-gray-600">
+                  {otherParticipant.email}
+                </p>
+              </div>
+            </div>
+            <div className="border-t pt-3 mt-3">
+              <p className="text-gray-700">
+                <span className="font-semibold">
+                  {t("communications.conversationAbout")}
+                </span>{" "}
+                {thread.tenant.name} {thread.tenant.surname}
+              </p>
+            </div>
           </div>
         </div>
 
@@ -170,13 +204,20 @@ function ThreadPageContent() {
                 <div className="flex justify-between items-start mb-2">
                   <div>
                     <div className="flex items-center gap-2 flex-wrap">
-                      <strong
-                        className={
-                          isSentByMe ? "text-orangeDark" : "text-blueLight"
-                        }
-                      >
-                        {comm.sender.name} {comm.sender.surname}
-                      </strong>
+                      {isSentByMe ? (
+                        <strong className="text-orangeDark">
+                          {comm.sender.name} {comm.sender.surname}
+                        </strong>
+                      ) : (
+                        <strong
+                          onClick={() =>
+                            router.push(`/landlord/${comm.sender.id}`)
+                          }
+                          className="text-blueLight hover:text-orange cursor-pointer hover:underline transition-colors"
+                        >
+                          {comm.sender.name} {comm.sender.surname}
+                        </strong>
+                      )}
                       <span className="text-xs text-gray bg-white px-2 py-0.5 rounded border border-gray-200">
                         {comm.sender.email}
                       </span>
