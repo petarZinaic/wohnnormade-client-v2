@@ -115,7 +115,8 @@
     "placeholder": "Search tenant by name...",
     "loading": "Loading...",
     "searchError": "Failed to search tenants",
-    "authMessage": "You need to be logged in to search tenant reports. Redirecting to login..."
+    "authMessage": "You need to be logged in to search tenant reports. Redirecting to login...",
+    "noResults": "No tenants found"
   },
   "tenantPreview": {
     "title": "Tenant Details",

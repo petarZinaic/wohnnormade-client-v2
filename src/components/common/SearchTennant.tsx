@@ -98,6 +98,16 @@ export default function SearchTennant() {
           ))}
         </ul>
       )}
+      {!isLoading &&
+        !error &&
+        searchTerm.trim().length >= 2 &&
+        suggestions.length === 0 && (
+          <div className="bg-white border mt-2 w-full rounded-lg shadow-lg">
+            <div className="p-3 flex items-center justify-center text-gray-500">
+              {t("search.noResults")}
+            </div>
+          </div>
+        )}
     </div>
   );
 }

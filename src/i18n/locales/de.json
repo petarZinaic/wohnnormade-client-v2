@@ -115,7 +115,8 @@
     "placeholder": "Mieter nach Namen suchen...",
     "loading": "Lädt...",
     "searchError": "Fehler beim Suchen von Mietern",
-    "authMessage": "Sie müssen angemeldet sein, um Mieterberichte zu suchen. Weiterleitung zur Anmeldung..."
+    "authMessage": "Sie müssen angemeldet sein, um Mieterberichte zu suchen. Weiterleitung zur Anmeldung...",
+    "noResults": "Keine Mieter gefunden"
   },
   "tenantPreview": {
     "title": "Mieterdetails",
