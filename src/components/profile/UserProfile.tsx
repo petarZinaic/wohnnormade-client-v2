@@ -20,7 +20,7 @@ import { formatDateDMY } from "@/utils/date";
 import { translateViolationType } from "@/utils/violationTypeTranslation";
 
 export default function UserProfile() {
-  const { t: translate } = useTranslation();
+  const { t } = useTranslation();
   const { user, logout } = useAuth();
   const router = useRouter();
 
@@ -97,7 +97,7 @@ export default function UserProfile() {
         setReportedTenants(p.tenants || []);
       } catch (err) {
         setTenantsError(
-          err instanceof Error ? err.message : "Failed to load reported tenants"
+          err instanceof Error ? err.message : t("profile.loadTenantsFailed")
         );
       } finally {
         setIsTenantsLoading(false);
@@ -126,7 +126,7 @@ export default function UserProfile() {
     }
 
     if (!user?.id) {
-      setError("User ID not found");
+      setError(t("profile.userIdNotFound"));
       return;
     }
 
@@ -141,13 +141,13 @@ export default function UserProfile() {
       };
 
       const updatedUser = await UserService.updateProfile(user.id, updateData);
-      setMessage("Profile updated successfully!");
+      setMessage(t("profile.profileUpdated"));
       setIsEditing(false);
 
       // Update the user context with new data
       // Note: You might need to add a method to update user context
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to update profile");
+      setError(err instanceof Error ? err.message : t("profile.updateFailed"));
     } finally {
       setIsLoading(false);
     }
@@ -159,12 +159,12 @@ export default function UserProfile() {
     setPasswordMessage("");
 
     if (newPassword !== confirmPassword) {
-      setPasswordError("New passwords do not match");
+      setPasswordError(t("profile.passwordsNotMatch"));
       return;
     }
 
     if (newPassword.length < 8) {
-      setPasswordError("New password must be at least 8 characters long");
+      setPasswordError(t("profile.passwordTooShort"));
       return;
     }
 
@@ -197,7 +197,7 @@ export default function UserProfile() {
       setConfirmPassword("");
     } catch (err) {
       setPasswordError(
-        err instanceof Error ? err.message : "Failed to change password"
+        err instanceof Error ? err.message : t("profile.changePasswordFailed")
       );
     } finally {
       setIsPasswordLoading(false);
@@ -212,11 +212,7 @@ export default function UserProfile() {
   const handleDeleteAccount = async () => {
     if (!user?.id) return;
 
-    if (
-      !confirm(
-        "Are you sure you want to delete your account? This action cannot be undone."
-      )
-    ) {
+    if (!confirm(t("profile.deleteAccountConfirm"))) {
       return;
     }
 
@@ -225,7 +221,9 @@ export default function UserProfile() {
       logout();
       router.push("/");
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to delete account");
+      setError(
+        err instanceof Error ? err.message : t("profile.deleteAccountFailed")
+      );
     }
   };
 
@@ -234,9 +232,9 @@ export default function UserProfile() {
       <div className="flex items-center justify-center min-h-screen bg-gray-100">
         <div className="text-center">
           <h1 className="text-2xl font-bold text-gray-700 mb-4">
-            User not found
+            {t("profile.userNotFound")}
           </h1>
-          <Button text="Go Home" onClick={() => router.push("/")} />
+          <Button text={t("profile.goHome")} onClick={() => router.push("/")} />
         </div>
       </div>
     );
@@ -247,14 +245,14 @@ export default function UserProfile() {
       <div className="w-full max-w-4xl mx-auto bg-white rounded-lg shadow-md">
         <div className="bg-orange text-white rounded-t-lg">
           <h1 className="text-xl text-center font-bold mb-6 py-4">
-            Landlord Profile
+            {t("profile.title")}
           </h1>
         </div>
 
         <div className="p-6">
           {isProfileLoading && (
             <div className="mb-4 p-3 bg-gray-50 border border-gray-200 text-gray-600 rounded">
-              Loading profile...
+              {t("profile.loadingProfile")}
             </div>
           )}
           {message && (
@@ -284,9 +282,13 @@ export default function UserProfile() {
           {/* Profile Information */}
           <div className="mb-8">
             <div className="flex justify-between items-center mb-4">
-              <h2 className="text-lg font-semibold">Profile Information</h2>
+              <h2 className="text-lg font-semibold">
+                {t("profile.profileInformation")}
+              </h2>
               <Button
-                text={isEditing ? "Cancel" : "Edit Profile"}
+                text={
+                  isEditing ? t("profile.cancel") : t("profile.editProfile")
+                }
                 onClick={() => setIsEditing(!isEditing)}
                 variant={isEditing ? "secondary" : "primary"}
               />
@@ -297,7 +299,7 @@ export default function UserProfile() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-gray-700 text-sm font-bold mb-2">
-                    Email Address
+                    {t("profile.emailAddress")}
                   </label>
                   <p className="text-gray-900 bg-orange-50 border border-orange-200 p-2 rounded">
                     {profile?.email || user.email}
@@ -305,17 +307,17 @@ export default function UserProfile() {
                 </div>
                 <div>
                   <label className="block text-gray-700 text-sm font-bold mb-2">
-                    Member Since
+                    {t("profile.memberSince")}
                   </label>
                   <p className="text-gray-900 bg-sky-50 border border-sky-200 p-2 rounded">
                     {formatDateDMY(
                       profile?.createdAt || (user.createdAt as any)
-                    ) || "N/A"}
+                    ) || t("profile.notAvailable")}
                   </p>
                 </div>
                 <div>
                   <label className="block text-gray-700 text-sm font-bold mb-2">
-                    Name
+                    {t("profile.name")}
                   </label>
                   <p className="text-gray-900 bg-emerald-50 border border-emerald-200 p-2 rounded">
                     {profile?.name || user.name}
@@ -323,7 +325,7 @@ export default function UserProfile() {
                 </div>
                 <div>
                   <label className="block text-gray-700 text-sm font-bold mb-2">
-                    Surname
+                    {t("profile.surname")}
                   </label>
                   <p className="text-gray-900 bg-violet-50 border border-violet-200 p-2 rounded">
                     {profile?.surname || user.surname}
@@ -331,7 +333,7 @@ export default function UserProfile() {
                 </div>
                 <div>
                   <label className="block text-gray-700 text-sm font-bold mb-2">
-                    City
+                    {t("profile.city")}
                   </label>
                   <p className="text-gray-900 bg-amber-50 border border-amber-200 p-2 rounded">
                     {profile?.city || user.city}
@@ -339,7 +341,7 @@ export default function UserProfile() {
                 </div>
                 <div>
                   <label className="block text-gray-700 text-sm font-bold mb-2">
-                    Country
+                    {t("profile.country")}
                   </label>
                   <p className="text-gray-900 bg-rose-50 border border-rose-200 p-2 rounded">
                     {profile?.country || user.country}
@@ -352,7 +354,7 @@ export default function UserProfile() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                   <div>
                     <label className="block text-gray-700 text-sm font-bold mb-2">
-                      Name
+                      {t("profile.name")}
                     </label>
                     <input
                       className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
@@ -371,7 +373,7 @@ export default function UserProfile() {
                   </div>
                   <div>
                     <label className="block text-gray-700 text-sm font-bold mb-2">
-                      Surname
+                      {t("profile.surname")}
                     </label>
                     <input
                       className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
@@ -394,15 +396,15 @@ export default function UserProfile() {
                   <LocationAutocomplete
                     value={city}
                     onChange={setCity}
-                    placeholder="Enter your city"
-                    label="City"
+                    placeholder={t("profile.enterCity")}
+                    label={t("profile.city")}
                     error={validationErrors.city}
                   />
                   <LocationAutocomplete
                     value={country}
                     onChange={setCountry}
-                    placeholder="Enter your country"
-                    label="Country"
+                    placeholder={t("profile.enterCountry")}
+                    label={t("profile.country")}
                     error={validationErrors.country}
                   />
                 </div>
@@ -412,13 +414,15 @@ export default function UserProfile() {
                     type="submit"
                     isLoading={isLoading}
                     disabled={isLoading}
-                    text={isLoading ? "Saving..." : "Save Changes"}
+                    text={
+                      isLoading ? t("profile.saving") : t("profile.saveChanges")
+                    }
                   />
                   <Button
                     type="button"
                     variant="secondary"
                     onClick={() => setIsEditing(false)}
-                    text="Cancel"
+                    text={t("profile.cancel")}
                   />
                 </div>
               </form>
@@ -427,9 +431,13 @@ export default function UserProfile() {
 
           {/* Reported Tenants */}
           <div className="mb-8">
-            <h2 className="text-lg font-semibold mb-4">Reported Tenants</h2>
+            <h2 className="text-lg font-semibold mb-4">
+              {t("profile.reportedTenants")}
+            </h2>
             {isTenantsLoading && (
-              <div className="text-gray-500 text-sm">Loading tenants...</div>
+              <div className="text-gray-500 text-sm">
+                {t("profile.loadingTenants")}
+              </div>
             )}
             {tenantsError && (
               <div className="mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded">
@@ -442,22 +450,22 @@ export default function UserProfile() {
                   <thead className="bg-gray-50">
                     <tr>
                       <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Name
+                        {t("profile.name")}
                       </th>
                       <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Date of Birth
+                        {t("profile.dateOfBirth")}
                       </th>
                       <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        City
+                        {t("profile.city")}
                       </th>
                       <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Country
+                        {t("profile.country")}
                       </th>
                       <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Violation
+                        {t("profile.violation")}
                       </th>
                       <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Reported At
+                        {t("profile.reportedAt")}
                       </th>
                     </tr>
                   </thead>
@@ -468,33 +476,33 @@ export default function UserProfile() {
                           className="px-4 py-3 text-gray-500 text-sm"
                           colSpan={6}
                         >
-                          No tenants reported yet.
+                          {t("profile.noTenantsReported")}
                         </td>
                       </tr>
                     ) : (
-                      reportedTenants.map((t) => (
+                      reportedTenants.map((tenant) => (
                         <tr
-                          key={t.id}
+                          key={tenant.id}
                           className="group hover:bg-orange hover:outline hover:outline-2 hover:outline-orange border-b border-gray-200 hover:border-orange cursor-pointer transition-colors"
-                          onClick={() => router.push(`/tenant/${t.id}`)}
+                          onClick={() => router.push(`/tenant/${tenant.id}`)}
                         >
                           <td className="px-4 py-3 text-sm text-gray-900 group-hover:text-white">
-                            {t.name} {t.surname}
+                            {tenant.name} {tenant.surname}
                           </td>
                           <td className="px-4 py-3 text-sm text-gray-700 group-hover:text-white">
-                            {formatDateDMY(t.dateOfBirth as any) || "-"}
+                            {formatDateDMY(tenant.dateOfBirth as any) || "-"}
                           </td>
                           <td className="px-4 py-3 text-sm text-gray-700 group-hover:text-white">
-                            {t.city}
+                            {tenant.city}
                           </td>
                           <td className="px-4 py-3 text-sm text-gray-700 group-hover:text-white">
-                            {t.country}
+                            {tenant.country}
                           </td>
                           <td className="px-4 py-3 text-sm text-gray-700 group-hover:text-white">
-                            {translateViolationType(t.violationType, translate)}
+                            {translateViolationType(tenant.violationType, t)}
                           </td>
                           <td className="px-4 py-3 text-sm text-gray-500 group-hover:text-white">
-                            {formatDateDMY((t as any).createdAt) || "-"}
+                            {formatDateDMY((tenant as any).createdAt) || "-"}
                           </td>
                         </tr>
                       ))
@@ -507,10 +515,16 @@ export default function UserProfile() {
 
           {/* Security Section */}
           <div className="mb-8">
-            <h2 className="text-lg font-semibold mb-4">Security</h2>
+            <h2 className="text-lg font-semibold mb-4">
+              {t("profile.security")}
+            </h2>
             <Button
               onClick={() => setShowChangePassword(!showChangePassword)}
-              text={showChangePassword ? "Cancel" : "Change Password"}
+              text={
+                showChangePassword
+                  ? t("profile.cancel")
+                  : t("profile.changePassword")
+              }
             />
 
             {showChangePassword && (
@@ -518,7 +532,7 @@ export default function UserProfile() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-gray-700 text-sm font-bold mb-2">
-                      Current Password
+                      {t("profile.currentPassword")}
                     </label>
                     <div className="relative">
                       <input
@@ -546,7 +560,7 @@ export default function UserProfile() {
                   </div>
                   <div>
                     <label className="block text-gray-700 text-sm font-bold mb-2">
-                      New Password
+                      {t("profile.newPassword")}
                     </label>
                     <div className="relative">
                       <input
@@ -574,7 +588,7 @@ export default function UserProfile() {
 
                 <div className="mt-4">
                   <label className="block text-gray-700 text-sm font-bold mb-2">
-                    Confirm New Password
+                    {t("profile.confirmNewPassword")}
                   </label>
                   <div className="relative">
                     <input
@@ -608,8 +622,8 @@ export default function UserProfile() {
                     disabled={isPasswordLoading}
                     text={
                       isPasswordLoading
-                        ? "Changing Password..."
-                        : "Change Password"
+                        ? t("profile.changingPassword")
+                        : t("profile.changePassword")
                     }
                   />
                 </div>
@@ -619,16 +633,18 @@ export default function UserProfile() {
 
           {/* Account Actions */}
           <div className="border-t pt-6">
-            <h2 className="text-lg font-semibold mb-4">Account Actions</h2>
+            <h2 className="text-lg font-semibold mb-4">
+              {t("profile.accountActions")}
+            </h2>
             <div className="flex flex-col sm:flex-row gap-2">
               <Button
                 onClick={handleLogout}
-                text="Logout"
+                text={t("profile.logout")}
                 buttonType="warning"
               />
               <Button
                 onClick={handleDeleteAccount}
-                text="Delete Account"
+                text={t("profile.deleteAccount")}
                 buttonType="danger"
               />
             </div>
