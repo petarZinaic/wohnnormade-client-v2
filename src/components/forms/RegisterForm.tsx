@@ -294,7 +294,6 @@ export default function RegisterForm({ onSuccess }: RegisterFormProps) {
 
           <div className="flex items-center justify-between">
             <Button
-              fullWidth
               type="submit"
               isLoading={isLoading}
               disabled={isLoading}
