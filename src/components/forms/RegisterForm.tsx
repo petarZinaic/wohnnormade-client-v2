@@ -41,15 +41,18 @@ export default function RegisterForm({ onSuccess }: RegisterFormProps) {
     setError("");
     setValidationErrors({});
 
-    const errors = validateRegisterForm({
-      email,
-      name,
-      surname,
-      city,
-      country,
-      password,
-      confirmPassword,
-    });
+    const errors = validateRegisterForm(
+      {
+        email,
+        name,
+        surname,
+        city,
+        country,
+        password,
+        confirmPassword,
+      },
+      t
+    );
 
     setValidationErrors(errors);
 

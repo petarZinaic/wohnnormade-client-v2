@@ -249,5 +249,31 @@
     "errorTitle": "Error Loading Landlord",
     "goBack": "Go Back",
     "invalidId": "Invalid landlord ID"
+  },
+  "validation": {
+    "emailRequired": "Email is required",
+    "emailInvalid": "Please enter a valid email address",
+    "nameRequired": "Name is required",
+    "nameMinLength": "Name must be at least 2 characters long",
+    "nameMaxLength": "Name must be less than 50 characters",
+    "nameInvalidCharacters": "Name can only contain letters and spaces",
+    "surnameRequired": "Surname is required",
+    "surnameMinLength": "Surname must be at least 2 characters long",
+    "surnameMaxLength": "Surname must be less than 50 characters",
+    "surnameInvalidCharacters": "Surname can only contain letters and spaces",
+    "cityRequired": "City is required",
+    "cityMinLength": "City must be at least 2 characters long",
+    "cityMaxLength": "City must be less than 100 characters",
+    "countryRequired": "Country is required",
+    "countryMinLength": "Country must be at least 2 characters long",
+    "countryMaxLength": "Country must be less than 100 characters",
+    "passwordRequired": "Password is required",
+    "passwordMinLength": "Password must be at least 8 characters long",
+    "passwordLowercase": "Password must contain at least one lowercase letter",
+    "passwordUppercase": "Password must contain at least one uppercase letter",
+    "passwordNumber": "Password must contain at least one number",
+    "passwordSpecialChar": "Password must contain at least one special character (@$!%*?&)",
+    "confirmPasswordRequired": "Please confirm your password",
+    "passwordsMismatch": "Passwords do not match"
   }
 }

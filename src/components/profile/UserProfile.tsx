@@ -114,10 +114,10 @@ export default function UserProfile() {
 
     // Validate form data
     const errors: ValidationErrors = {};
-    errors.name = validateName(name);
-    errors.surname = validateSurname(surname);
-    errors.city = validateCity(city);
-    errors.country = validateCountry(country);
+    errors.name = validateName(name, t);
+    errors.surname = validateSurname(surname, t);
+    errors.city = validateCity(city, t);
+    errors.country = validateCountry(country, t);
 
     setValidationErrors(errors);
 
