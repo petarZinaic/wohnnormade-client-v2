@@ -1,12 +1,18 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import "react-datepicker/dist/react-datepicker.css";
+import { Footer, Navbar } from "@/components/common";
+import { AuthProvider } from "@/context/AuthContext";
+import { TenantProvider } from "@/context/TenantContext";
+import { LanguageProvider } from "@/context/LanguageContext";
+import { I18nProvider } from "@/components/providers/I18nProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Wohnnormade",
-  description: "Wohnnormade",
+  title: "Wohnnomade",
+  description: "Wohnnomade",
 };
 
 export default function RootLayout({
@@ -16,8 +22,20 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <link rel="icon" href="/assets/icons/favicon.png"/>
-      <body className={inter.className}>{children}</body>
+      <link rel="icon" href="/assets/icons/favicon.png" />
+      <body className={inter.className}>
+        <I18nProvider>
+          <LanguageProvider>
+            <AuthProvider>
+              <TenantProvider>
+                <Navbar />
+                {children}
+                <Footer />
+              </TenantProvider>
+            </AuthProvider>
+          </LanguageProvider>
+        </I18nProvider>
+      </body>
     </html>
   );
 }

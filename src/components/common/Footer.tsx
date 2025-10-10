@@ -1,6 +1,10 @@
+"use client";
+
 import Image from "next/image";
+import { useTranslation } from "react-i18next";
 
 export default function Footer() {
+  const { t } = useTranslation();
   return (
     <footer className="bg-blueLight text-white text-center pt-8 mt-20">
       <div className="container mx-auto px-4">
@@ -13,12 +17,12 @@ export default function Footer() {
               height={80}
             />
           </div>
-          <p className="mb-2">Make sure to read our terms of use and privacy policy.</p>
-          <p>Register and become a part of our community.</p>
+          <p className="mb-2">{t("footer.termsMessage")}</p>
+          <p>{t("footer.communityMessage")}</p>
         </div>
       </div>
       <div className="flex justify-center items-center mt-4 py-2 bg-orange w-full">
-        <p className="text-white">Copyright © All rights reserved.</p>
+        <p className="text-white">{t("footer.copyright")}</p>
       </div>
     </footer>
   );

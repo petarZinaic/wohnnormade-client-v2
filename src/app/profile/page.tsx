@@ -1,10 +1,10 @@
-import { ReportTennantForm } from "@/components/forms";
 import ProtectedRoute from "@/components/auth/ProtectedRoute";
+import UserProfile from "@/components/profile/UserProfile";
 
-export default function Contribute() {
+export default function ProfilePage() {
   return (
     <ProtectedRoute>
-      <ReportTennantForm />
+      <UserProfile />
     </ProtectedRoute>
   );
 }
