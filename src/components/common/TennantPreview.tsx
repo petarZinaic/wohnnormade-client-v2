@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useTranslation } from "react-i18next";
+import { useAuth } from "@/context/AuthContext";
 import UserAvatarIcon from "@/components/icons/UserAvatarIcon";
 import { translateViolationType } from "@/utils/violationTypeTranslation";
 import { ContactReporterModal } from "@/components/forms";
@@ -10,6 +11,7 @@ import { ContactReporterModal } from "@/components/forms";
 export default function TennantPreview() {
   const { t } = useTranslation();
   const router = useRouter();
+  const { user } = useAuth();
   const [tenant, setTenant] = useState<any>(null);
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
 
@@ -49,6 +51,8 @@ export default function TennantPreview() {
   const reporterInitials = reporterName
     ? `${reporter.name?.[0] || ""}${reporter.surname?.[0] || ""}`.toUpperCase()
     : "?";
+
+  const isCurrentUserReporter = user && reporter && user.id === reporter.id;
 
   const getBadgeClasses = (type: string) => {
     const t = (type || "").toLowerCase();
@@ -155,7 +159,7 @@ export default function TennantPreview() {
                 </div>
               </div>
 
-              {reporter && (
+              {reporter && !isCurrentUserReporter && (
                 <button
                   onClick={() => setIsContactModalOpen(true)}
                   className="px-4 py-2 bg-orange text-white rounded-lg hover:bg-orange-600 transition-colors text-sm font-medium shadow-sm"
