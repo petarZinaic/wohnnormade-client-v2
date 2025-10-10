@@ -218,9 +218,6 @@ function ThreadPageContent() {
                           {comm.sender.name} {comm.sender.surname}
                         </strong>
                       )}
-                      <span className="text-xs text-gray bg-white px-2 py-0.5 rounded border border-gray-200">
-                        {comm.sender.email}
-                      </span>
                     </div>
                     <span className="text-sm text-gray">
                       {new Date(comm.createdAt).toLocaleString()}
