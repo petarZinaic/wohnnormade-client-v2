@@ -177,13 +177,15 @@ function ThreadPageContent() {
                 </p>
               </div>
             </div>
-            <div className="border-t pt-3 mt-3">
-              <p className="text-gray-700">
-                <span className="font-semibold">
+            <div className="border-t pt-4 mt-4">
+              <div className="flex items-center gap-2 flex-wrap">
+                <span className="text-sm text-gray-600 font-medium">
                   {t("communications.conversationAbout")}
-                </span>{" "}
-                {thread.tenant.name} {thread.tenant.surname}
-              </p>
+                </span>
+                <span className="inline-flex items-center px-3 py-1.5 rounded-lg bg-gradient-to-r from-orange/10 to-orangeLight/20 border border-orange/30 text-orangeDark font-semibold text-sm shadow-sm">
+                  {thread.tenant.name} {thread.tenant.surname}
+                </span>
+              </div>
             </div>
           </div>
         </div>
@@ -218,9 +220,6 @@ function ThreadPageContent() {
                           {comm.sender.name} {comm.sender.surname}
                         </strong>
                       )}
-                      <span className="text-xs text-gray bg-white px-2 py-0.5 rounded border border-gray-200">
-                        {comm.sender.email}
-                      </span>
                     </div>
                     <span className="text-sm text-gray">
                       {new Date(comm.createdAt).toLocaleString()}

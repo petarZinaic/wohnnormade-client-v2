@@ -22,11 +22,12 @@ if (typeof window !== "undefined") {
     .use(initReactI18next)
     .init({
       resources,
-      fallbackLng: "en",
+      lng: "de", // Set explicit default language
+      fallbackLng: "de",
       debug: process.env.NODE_ENV === "development",
 
       detection: {
-        order: ["localStorage", "navigator", "htmlTag"],
+        order: ["localStorage"], // Only use localStorage, ignore browser language
         caches: ["localStorage"],
       },
 
@@ -38,8 +39,8 @@ if (typeof window !== "undefined") {
   // Server-side initialization without browser-specific features
   i18n.use(initReactI18next).init({
     resources,
-    fallbackLng: "en",
-    lng: "en",
+    fallbackLng: "de",
+    lng: "de",
     interpolation: {
       escapeValue: false,
     },
