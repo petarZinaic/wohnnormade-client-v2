@@ -29,7 +29,7 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({
   children,
 }) => {
   const { i18n } = useTranslation();
-  const [currentLanguage, setCurrentLanguage] = useState<string>("en");
+  const [currentLanguage, setCurrentLanguage] = useState<string>("de");
   const [isInitialized, setIsInitialized] = useState(false);
 
   const availableLanguages = [
@@ -54,19 +54,19 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({
 
     // Wait for i18n to be ready
     if (i18n.isInitialized) {
-      setCurrentLanguage(i18n.language || "en");
+      setCurrentLanguage(i18n.language || "de");
       setIsInitialized(true);
     } else {
       i18n.on("initialized", () => {
-        setCurrentLanguage(i18n.language || "en");
+        setCurrentLanguage(i18n.language || "de");
         setIsInitialized(true);
       });
     }
 
     i18n.on("languageChanged", handleLanguageChange);
 
-    // Set initial language from localStorage or default to 'en'
-    const savedLanguage = localStorage.getItem("i18nextLng") || "en";
+    // Set initial language from localStorage or default to 'de'
+    const savedLanguage = localStorage.getItem("i18nextLng") || "de";
     if (savedLanguage !== i18n.language && i18n.isInitialized) {
       i18n.changeLanguage(savedLanguage);
     }
