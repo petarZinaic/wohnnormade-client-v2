@@ -30,6 +30,8 @@ export default function RegisterForm({ onSuccess }: RegisterFormProps) {
   const [error, setError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [acceptedTerms, setAcceptedTerms] = useState(false);
+  const [acceptedPrivacy, setAcceptedPrivacy] = useState(false);
   const [validationErrors, setValidationErrors] = useState<ValidationErrors>(
     {}
   );
@@ -40,6 +42,16 @@ export default function RegisterForm({ onSuccess }: RegisterFormProps) {
     e.preventDefault();
     setError("");
     setValidationErrors({});
+
+    if (!acceptedTerms) {
+      setError(t("register.acceptTerms") + " " + t("register.termsOfUse"));
+      return;
+    }
+
+    if (!acceptedPrivacy) {
+      setError(t("register.acceptPrivacy") + " " + t("register.privacyPolicy"));
+      return;
+    }
 
     const errors = validateRegisterForm(
       {
@@ -84,6 +96,20 @@ export default function RegisterForm({ onSuccess }: RegisterFormProps) {
       setValidationErrors((prev) => ({ ...prev, [field]: undefined }));
     }
   };
+
+  const isFormValid =
+    email &&
+    name &&
+    surname &&
+    city &&
+    country &&
+    password &&
+    confirmPassword &&
+    password === confirmPassword &&
+    acceptedTerms &&
+    acceptedPrivacy;
+
+  const isSubmitDisabled = isLoading || !isFormValid;
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
@@ -295,11 +321,53 @@ export default function RegisterForm({ onSuccess }: RegisterFormProps) {
             )}
           </div>
 
+          <div className="mb-4">
+            <label className="flex items-start">
+              <input
+                type="checkbox"
+                className="mt-1 mr-2"
+                checked={acceptedTerms}
+                onChange={(e) => setAcceptedTerms(e.target.checked)}
+              />
+              <span className="text-sm text-gray-700">
+                {t("register.acceptTerms")}{" "}
+                <Link
+                  href="/terms-of-use"
+                  target="_blank"
+                  className="text-orange hover:text-orangeDark font-semibold"
+                >
+                  {t("register.termsOfUse")}
+                </Link>
+              </span>
+            </label>
+          </div>
+
+          <div className="mb-6">
+            <label className="flex items-start">
+              <input
+                type="checkbox"
+                className="mt-1 mr-2"
+                checked={acceptedPrivacy}
+                onChange={(e) => setAcceptedPrivacy(e.target.checked)}
+              />
+              <span className="text-sm text-gray-700">
+                {t("register.acceptPrivacy")}{" "}
+                <Link
+                  href="/privacy-policy"
+                  target="_blank"
+                  className="text-orange hover:text-orangeDark font-semibold"
+                >
+                  {t("register.privacyPolicy")}
+                </Link>
+              </span>
+            </label>
+          </div>
+
           <div className="flex items-center justify-between">
             <Button
               type="submit"
               isLoading={isLoading}
-              disabled={isLoading}
+              disabled={isSubmitDisabled}
               text={
                 isLoading
                   ? t("register.creatingAccount")
