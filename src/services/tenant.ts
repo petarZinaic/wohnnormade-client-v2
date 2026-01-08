@@ -23,10 +23,10 @@ class TenantService {
     return response.json();
   }
 
-  static async searchTenants(query: string): Promise<ApiResponse<Tenant[]>> {
+  static async searchTenants(query: string, dateOfBirth: string): Promise<ApiResponse<Tenant[]>> {
     const normalized = query.replace(/\s+/g, " ").trim();
-    const url = getApiUrl(`/tenant/search?q=${encodeURIComponent(normalized)}`);
-    const response = await fetch(url, {
+    const url = `/tenant/search?q=${encodeURIComponent(normalized)}&dateOfBirth=${encodeURIComponent(dateOfBirth)}`;
+    const response = await fetch(getApiUrl(url), {
       headers: {
         "Content-Type": "application/json",
         ...AuthService.getAuthHeaders(),
