@@ -112,7 +112,7 @@ export default function RegisterForm({ onSuccess }: RegisterFormProps) {
   const isSubmitDisabled = isLoading || !isFormValid;
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
+    <div className="flex items-center justify-center min-h-screen mt-10 bg-gray-100">
       <div className="w-full max-w-4xl mx-auto bg-white rounded-lg shadow-md">
         <div className="bg-orange text-white rounded-t-lg">
           <h1 className="text-xl text-center font-bold mb-6 py-4">
