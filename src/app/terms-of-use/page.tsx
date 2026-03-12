@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import ReactMarkdown from "react-markdown";
+import DocumentPageLayout from "@/components/common/DocumentPageLayout";
 
 export default function TermsOfUsePage() {
   const { i18n } = useTranslation();
@@ -29,19 +29,14 @@ export default function TermsOfUsePage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-100 py-12 px-4 flex items-center justify-center">
-        <div className="text-gray-600">Loading...</div>
+      <div className="min-h-screen bg-blueDark flex items-center justify-center">
+        <div className="flex flex-col items-center gap-3">
+          <div className="w-8 h-8 border-4 border-orange border-t-transparent rounded-full animate-spin" />
+          <span className="text-white text-sm">Loading...</span>
+        </div>
       </div>
     );
   }
 
-  return (
-    <div className="min-h-screen bg-gray-100 py-12 px-4">
-      <div className="max-w-4xl mx-auto bg-white rounded-lg shadow-md p-8">
-        <article className="prose prose-sm max-w-none prose-headings:text-gray-900 prose-p:text-gray-700 prose-li:text-gray-700 prose-strong:text-gray-900">
-          <ReactMarkdown>{content}</ReactMarkdown>
-        </article>
-      </div>
-    </div>
-  );
+  return <DocumentPageLayout content={content} />;
 }

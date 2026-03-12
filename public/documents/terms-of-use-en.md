@@ -4,13 +4,13 @@
 
 ## 1. Introduction
 
-Welcome to WohnNomade.com ("we," "our," or "the Platform"). These Terms of Use ("Terms") govern your access to and use of our non-profit tenant registration platform. By accessing or using our Platform, you agree to be bound by these Terms.
+Welcome to Wohnnomade.com ("we," "our," or "the Platform"). These Terms of Use ("Terms") govern your access to and use of our non-profit tenant registration platform. By accessing or using our Platform, you agree to be bound by these Terms.
 
-**WohnNomade.com** is a non-profit organization funded exclusively through advertising revenue, providing landlords and property managers with information about tenants' rental history.
+**Wohnnomade.com** is a non-profit organization funded exclusively through advertising revenue, providing landlords and property managers with information about tenants' rental history.
 
 ## 2. Definitions
 
-- **"Platform"**: The WohnNomade.com website and all associated services
+- **"Platform"**: The Wohnnomade.com website and all associated services
 - **"User"**: Any person who registers for and uses the Platform
 - **"Landlord"**: A person or organization that rents out residential property
 - **"Tenant"**: A person who rents residential property
@@ -42,13 +42,13 @@ Both categories have the same rights:
 ## 4. Purpose and Scope of Service
 
 ### 4.1 Platform Purpose
-WohnNomade.com serves as a registry to document cases where tenants:
+Wohnnomade.com serves as a registry to document cases where tenants:
 - Failed to pay rent as contractually obligated
 - Left rental properties in significantly damaged or poor condition
 - Otherwise materially breached their lease agreements
 
 ### 4.2 Non-Profit Status
-- WohnNomade.com operates as a non-profit organization
+- Wohnnomade.com operates as a non-profit organization
 - The Platform is funded exclusively through advertising revenue
 - No fees are charged to users for access or services
 

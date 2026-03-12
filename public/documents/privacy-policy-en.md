@@ -4,10 +4,10 @@
 
 ## 1. Introduction
 
-WohnNomade.com ("we," "our," "us," or "the Platform") is committed to protecting your privacy and personal data. This Privacy Policy explains how we collect, use, store, and protect information in compliance with the General Data Protection Regulation (GDPR) and other applicable data protection laws.
+Wohnnomade.com ("we," "our," "us," or "the Platform") is committed to protecting your privacy and personal data. This Privacy Policy explains how we collect, use, store, and protect information in compliance with the General Data Protection Regulation (GDPR) and other applicable data protection laws.
 
 **Data Controller:**
-WohnNomade.com
+Wohnnomade.com
 Email: privacy@wohnnomade.com
 
 ## 2. Information We Collect
@@ -95,7 +95,7 @@ We process personal data based on the following legal grounds:
 **CRITICAL PRIVACY COMMITMENT**: We do NOT share, sell, rent, or disclose personal information to third parties except as explicitly stated below.
 
 ### 5.2 Information Remains on Platform
-- All collected data remains exclusively on WohnNomade.com
+- All collected data remains exclusively on Wohnnomade.com
 - Users can only access information through authorized searches
 - No bulk data exports or API access for third parties
 
@@ -303,7 +303,7 @@ In case of data breach with high risk to rights and freedoms:
 You have the right to lodge a complaint with a data protection supervisory authority.
 
 **EU Data Protection Authorities:**
-You can contact your local data protection authority or the lead supervisory authority where WohnNomade.com is established.
+You can contact your local data protection authority or the lead supervisory authority where Wohnnomade.com is established.
 
 ## 16. Contact Information
 
@@ -325,7 +325,7 @@ For privacy-related questions or to exercise your rights:
 
 ## 17. Consent
 
-By using WohnNomade.com, you confirm that you have read, understood, and agree to this Privacy Policy.
+By using Wohnnomade.com, you confirm that you have read, understood, and agree to this Privacy Policy.
 
 **Effective Date:** January 6, 2026
 **Version:** 1.0

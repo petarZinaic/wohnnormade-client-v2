@@ -4,10 +4,10 @@
 
 ## 1. Einleitung
 
-WohnNomade.com („wir", „unser", „uns" oder „die Plattform") verpflichtet sich zum Schutz Ihrer Privatsphäre und personenbezogenen Daten. Diese Datenschutzerklärung erläutert, wie wir Informationen in Übereinstimmung mit der Datenschutz-Grundverordnung (DSGVO) und anderen anwendbaren Datenschutzgesetzen erheben, verwenden, speichern und schützen.
+Wohnnomade.com („wir", „unser", „uns" oder „die Plattform") verpflichtet sich zum Schutz Ihrer Privatsphäre und personenbezogenen Daten. Diese Datenschutzerklärung erläutert, wie wir Informationen in Übereinstimmung mit der Datenschutz-Grundverordnung (DSGVO) und anderen anwendbaren Datenschutzgesetzen erheben, verwenden, speichern und schützen.
 
 **Verantwortlicher:**  
-WohnNomade.com  
+Wohnnomade.com  
 [Vollständige Adresse noch hinzuzufügen]  
 E-Mail: privacy@wohnnomade.com
 

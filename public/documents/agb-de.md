@@ -4,13 +4,13 @@
 
 ## 1. Einleitung
 
-Willkommen bei WohnNomade.com („wir", „unser" oder „die Plattform"). Diese Allgemeinen Geschäftsbedingungen („AGB") regeln Ihren Zugang zu und die Nutzung unserer gemeinnützigen Mieterregistrierungsplattform. Durch den Zugriff auf oder die Nutzung unserer Plattform erklären Sie sich mit diesen AGB einverstanden.
+Willkommen bei Wohnnomade.com („wir", „unser" oder „die Plattform"). Diese Allgemeinen Geschäftsbedingungen („AGB") regeln Ihren Zugang zu und die Nutzung unserer gemeinnützigen Mieterregistrierungsplattform. Durch den Zugriff auf oder die Nutzung unserer Plattform erklären Sie sich mit diesen AGB einverstanden.
 
-**WohnNomade.com** ist eine gemeinnützige Organisation, die ausschließlich durch Werbeeinnahmen finanziert wird und Vermietern und Hausverwaltungen Informationen über die Miethistorie von Mietern zur Verfügung stellt.
+**Wohnnomade.com** ist eine gemeinnützige Organisation, die ausschließlich durch Werbeeinnahmen finanziert wird und Vermietern und Hausverwaltungen Informationen über die Miethistorie von Mietern zur Verfügung stellt.
 
 ## 2. Definitionen
 
-- **„Plattform"**: Die Website WohnNomade.com und alle damit verbundenen Dienste
+- **„Plattform"**: Die Website Wohnnomade.com und alle damit verbundenen Dienste
 - **„Nutzer"**: Jede Person, die sich auf der Plattform registriert und diese nutzt
 - **„Vermieter"**: Eine Person oder Organisation, die Wohnraum vermietet
 - **„Mieter"**: Eine Person, die Wohnraum mietet
@@ -42,13 +42,13 @@ Beide Kategorien haben die gleichen Rechte:
 ## 4. Zweck und Umfang des Dienstes
 
 ### 4.1 Plattformzweck
-WohnNomade.com dient als Register zur Dokumentation von Fällen, in denen Mieter:
+Wohnnomade.com dient als Register zur Dokumentation von Fällen, in denen Mieter:
 - Die Miete nicht vertragsgemäß gezahlt haben
 - Die Mietwohnung in erheblich beschädigtem oder schlechtem Zustand hinterlassen haben
 - Anderweitig wesentlich gegen ihre Mietverträge verstoßen haben
 
 ### 4.2 Gemeinnütziger Status
-- WohnNomade.com ist als gemeinnützige Organisation tätig
+- Wohnnomade.com ist als gemeinnützige Organisation tätig
 - Die Plattform wird ausschließlich durch Werbeeinnahmen finanziert
 - Nutzern werden keine Gebühren für Zugang oder Dienste berechnet
 
@@ -62,7 +62,7 @@ Für jeden Eintrag erheben und speichern wir:
 - Belege (wenn verfügbar)
 
 ### 5.2 Erfordernis der vertraglichen Einwilligung
-**KRITISCHE RECHTLICHE VORAUSSETZUNG**: Jede Person, die auf der Plattform eingetragen wird, muss in ihrem Mietvertrag eine ausdrückliche schriftliche Einwilligung erteilt haben, die es ermöglicht, ihre Informationen bei WohnNomade.com einzutragen, falls:
+**KRITISCHE RECHTLICHE VORAUSSETZUNG**: Jede Person, die auf der Plattform eingetragen wird, muss in ihrem Mietvertrag eine ausdrückliche schriftliche Einwilligung erteilt haben, die es ermöglicht, ihre Informationen bei Wohnnomade.com einzutragen, falls:
 - Mietzahlungen nicht geleistet wurden
 - Sachschäden entstanden sind
 - Wesentliche Verstöße gegen den Mietvertrag vorliegen
