@@ -1,12 +1,33 @@
-"use client";
+import type { Metadata } from "next";
+import TenantEditClient from "./TenantEditClient";
 
-import { useParams } from "next/navigation";
-import TenantEditForm from "@/components/forms/TenantEditForm";
+interface Props {
+  params: { id: string };
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const id = Number(params.id);
+  if (!id || isNaN(id)) {
+    return { title: "Mieter bearbeiten", robots: { index: false, follow: false } };
+  }
+
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/tenant/${id}`,
+      { next: { revalidate: 60 } }
+    );
+    if (!res.ok) throw new Error("not found");
+    const data = await res.json();
+    const tenant = data.result ?? data;
+    return {
+      title: `${tenant.name} ${tenant.surname} bearbeiten`,
+      robots: { index: false, follow: false },
+    };
+  } catch {
+    return { title: "Mieter bearbeiten", robots: { index: false, follow: false } };
+  }
+}
 
 export default function TenantEditPage() {
-  const params = useParams();
-  const idParam = (params?.id ?? "").toString();
-  const id = Number(idParam);
-  if (!id || Number.isNaN(id)) return null;
-  return <TenantEditForm tenantId={id} />;
+  return <TenantEditClient />;
 }

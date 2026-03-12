@@ -11,8 +11,33 @@ import { I18nProvider } from "@/components/providers/I18nProvider";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Wohnnomade",
-  description: "Wohnnomade",
+  metadataBase: new URL("https://wohnnomade.com"),
+  title: {
+    default: "Wohnnomade",
+    template: "%s | Wohnnomade",
+  },
+  description:
+    "Wohnnomade – Die Plattform für Vermieter, um Mieter zu bewerten und Erfahrungen zu teilen.",
+  icons: { icon: "/assets/icons/favicon.png" },
+  openGraph: {
+    type: "website",
+    siteName: "Wohnnomade",
+    locale: "de_DE",
+    url: "https://wohnnomade.com",
+    title: "Wohnnomade",
+    description:
+      "Wohnnomade – Die Plattform für Vermieter, um Mieter zu bewerten und Erfahrungen zu teilen.",
+    images: [
+      { url: "/opengraph-image", width: 1200, height: 630, alt: "Wohnnomade" },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Wohnnomade",
+    description:
+      "Wohnnomade – Die Plattform für Vermieter, um Mieter zu bewerten und Erfahrungen zu teilen.",
+    images: ["/opengraph-image"],
+  },
 };
 
 export default function RootLayout({
@@ -21,8 +46,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <link rel="icon" href="/assets/icons/favicon.png" />
+    <html lang="de">
       <body className={inter.className}>
         <I18nProvider>
           <LanguageProvider>

@@ -1,12 +1,13 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useTranslation } from "react-i18next";
 
 export default function Footer() {
   const { t } = useTranslation();
   return (
-    <footer className="bg-blueLight text-white text-center pt-8 mt-20">
+    <footer className="bg-blueLight text-white text-center pt-8">
       <div className="container mx-auto px-4">
         <div className="flex flex-col items-center">
           <div className="mb-4">
@@ -17,7 +18,21 @@ export default function Footer() {
               height={80}
             />
           </div>
-          <p className="mb-2">{t("footer.termsMessage")}</p>
+          <div className="mb-2 flex gap-4">
+            <Link
+              href="/terms-of-use"
+              className="text-white hover:text-orange transition-colors underline"
+            >
+              {t("register.termsOfUse")}
+            </Link>
+            <span>|</span>
+            <Link
+              href="/privacy-policy"
+              className="text-white hover:text-orange transition-colors underline"
+            >
+              {t("register.privacyPolicy")}
+            </Link>
+          </div>
           <p>{t("footer.communityMessage")}</p>
         </div>
       </div>
