@@ -141,7 +141,12 @@
     "unknownReporter": "Unknown reporter",
     "landlord": "Landlord",
     "loading": "Loading...",
-    "contactReporter": "Contact Reporter"
+    "contactReporter": "Contact Reporter",
+    "downloadPdf": "Download PDF",
+    "violationType": "Violation Type",
+    "reporter": "Reporter",
+    "email": "Email",
+    "generatedOn": "Generated on"
   },
   "violationTypes": {
     "rentNotPaid": "Rent Not Paid",

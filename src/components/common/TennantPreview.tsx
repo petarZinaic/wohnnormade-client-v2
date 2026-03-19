@@ -7,6 +7,7 @@ import { useAuth } from "@/context/AuthContext";
 import UserAvatarIcon from "@/components/icons/UserAvatarIcon";
 import { translateViolationType } from "@/utils/violationTypeTranslation";
 import { ContactReporterModal } from "@/components/forms";
+import { downloadTenantPdf } from "@/utils/tenantPdf";
 
 export default function TennantPreview() {
   const { t } = useTranslation();
@@ -55,10 +56,42 @@ export default function TennantPreview() {
   const isCurrentUserReporter = user && reporter && user.id === reporter.id;
 
   const getBadgeClasses = (type: string) => {
-    const t = (type || "").toLowerCase();
-    if (t.includes("rent"))
+    const normalized = (type || "").toLowerCase();
+    if (normalized.includes("rent"))
       return "bg-yellow-100 text-yellow-800 ring-yellow-200";
     return "bg-rose-100 text-rose-800 ring-rose-200";
+  };
+
+  const handleDownloadPdf = () => {
+    downloadTenantPdf(
+      {
+        fullName: `${name || ""} ${surname || ""}`.trim(),
+        dateOfBirth,
+        city,
+        country,
+        violationType: violationType
+          ? translateViolationType(violationType, t)
+          : undefined,
+        description,
+        reportedAt: createdAt,
+        reporterName,
+        reporterEmail,
+        fileName: `tenant-${(name || "unknown").toLowerCase()}-${(surname || "").toLowerCase()}.pdf`,
+      },
+      {
+        title: t("tenantPreview.title"),
+        reportedAt: t("tenantPreview.reportedAt"),
+        fullName: t("tenantPreview.fullName"),
+        dateOfBirth: t("tenantPreview.dateOfBirth"),
+        city: t("tenantPreview.city"),
+        country: t("tenantPreview.country"),
+        violationType: t("tenantPreview.violationType"),
+        description: t("tenantPreview.description"),
+        reporter: t("tenantPreview.reporter"),
+        email: t("tenantPreview.email"),
+        generatedOn: t("tenantPreview.generatedOn"),
+      }
+    );
   };
 
   return (
@@ -159,14 +192,22 @@ export default function TennantPreview() {
                 </div>
               </div>
 
-              {reporter && !isCurrentUserReporter && (
+              <div className="flex items-center gap-2">
                 <button
-                  onClick={() => setIsContactModalOpen(true)}
-                  className="px-4 py-2 bg-orange text-white rounded-lg hover:bg-orange-600 transition-colors text-sm font-medium shadow-sm"
+                  onClick={handleDownloadPdf}
+                  className="px-4 py-2 bg-blueLight text-white rounded-lg hover:bg-blueDark transition-colors text-sm font-medium shadow-sm"
                 >
-                  {t("tenantPreview.contactReporter")}
+                  {t("tenantPreview.downloadPdf")}
                 </button>
-              )}
+                {reporter && !isCurrentUserReporter && (
+                  <button
+                    onClick={() => setIsContactModalOpen(true)}
+                    className="px-4 py-2 bg-orange text-white rounded-lg hover:bg-orange-600 transition-colors text-sm font-medium shadow-sm"
+                  >
+                    {t("tenantPreview.contactReporter")}
+                  </button>
+                )}
+              </div>
             </div>
           </div>
         </div>

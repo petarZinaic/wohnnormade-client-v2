@@ -141,7 +141,12 @@
     "unknownReporter": "Unbekannter Melder",
     "landlord": "Vermieter",
     "loading": "Lädt...",
-    "contactReporter": "Melder kontaktieren"
+    "contactReporter": "Melder kontaktieren",
+    "downloadPdf": "PDF herunterladen",
+    "violationType": "Verstoßart",
+    "reporter": "Melder",
+    "email": "E-Mail",
+    "generatedOn": "Erstellt am"
   },
   "violationTypes": {
     "rentNotPaid": "Miete nicht bezahlt",
